@@ -29,17 +29,13 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/books/search', [SearchController::class, 'index'])->name('search');
 Route::get('/books/searchList', [SearchController::class, 'search'])->name('books.search');
 
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
 Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
