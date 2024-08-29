@@ -27,7 +27,8 @@ Route::prefix('admin')
 
         Route::resource('members', MemberController::class);
 
-        Route::resource('books', BookController::class);
+        Route::resource('books', BookController::class)->except(['update']);
+        Route::post('books/{book}', [BookController::class, 'update'])->name('books.update');
         Route::post('books/massDelete', [BookController::class, 'massDelete'])
             ->name('books.massDelete');
 

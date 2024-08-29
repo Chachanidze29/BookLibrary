@@ -53,7 +53,6 @@ class BookService
     {
         return DB::transaction(function () use ($data, $id) {
             $book = Book::findOrFail($id);
-
             if (array_key_exists('cover_image', $data) && $data['cover_image'] instanceof UploadedFile) {
                 $path = $data['cover_image']->store('books', 'public');
                 $data['cover_image'] = $path;

@@ -19,6 +19,7 @@ class CatalogController extends Controller
         ];
 
         $query = Book::query();
+        $query->orderBy('created_at', 'desc');
 
         if (!empty($filters['authors'])) {
             $query->whereHas('authors', function ($q) use ($filters) {

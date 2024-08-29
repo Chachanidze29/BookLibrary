@@ -32,7 +32,7 @@ class UpdateBookRequest extends FormRequest
             'genres.*' => 'integer|exists:genres,id',
             'authors' => 'array',
             'authors.*' => 'integer|exists:authors,id',
-//            'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
