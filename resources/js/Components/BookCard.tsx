@@ -28,12 +28,13 @@ export function BookCard({ book }: { book: Book }) {
     return (
         <Link href={route('books.show', book.id)}>
             <Card className="transition-shadow duration-300 hover:shadow-md">
-                <CardHeader className="aspect-3/4 relative justify-center">
+                <CardHeader className="relative aspect-3/4 justify-center">
                     <HeartIcon
                         onClick={handleWishlistClick}
                         className={cn(
-                            'absolute right-4 top-4 text-red-500 hover:fill-red-500',
+                            'absolute right-1 top-1 text-red-500 hover:fill-red-500',
                             { 'fill-red-500': book.is_in_wishlist },
+                            'transition-transform duration-300 hover:scale-110',
                         )}
                     />
 
