@@ -28,8 +28,9 @@ class MakeSuperAdmin extends Command
     public function handle()
     {
         $email = $this->argument('email');
-        User::where('email', $email)
-            ->first()
-            ->assignRole(RolesEnum::SUPERADMIN);
+        $user = User::where('email', $email)
+            ->first();
+        $user->assignRole(RolesEnum::SUPERADMIN);
+        $user->markEmailAsVerified();
     }
 }

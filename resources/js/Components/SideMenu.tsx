@@ -36,12 +36,24 @@ const SideMenu: React.FC<SideMenuProps> = ({
         genres: filters.genres || [],
     });
 
+    const [visibleItems, setVisibleItems] = useState<{
+        [key: string]: number;
+    }>({});
+
     useEffect(() => {
         setSelectedFilters({
             authors: filters.authors || [],
             genres: filters.genres || [],
         });
     }, [filters]);
+
+    useEffect(() => {
+        const initialVisibleItems: { [key: string]: number } = {};
+        Object.keys(categories).forEach((categoryName) => {
+            initialVisibleItems[categoryName] = 5;
+        });
+        setVisibleItems(initialVisibleItems);
+    }, [categories]);
 
     const handleCheckboxChange = (
         category: keyof SelectedFilters,
@@ -62,12 +74,16 @@ const SideMenu: React.FC<SideMenuProps> = ({
     };
 
     const isChecked = (categoryName: string, itemId: number) => {
-        const result =
-            selectedFilters[categoryName as keyof SelectedFilters].includes(
-                itemId,
-            );
+        return selectedFilters[categoryName as keyof SelectedFilters].includes(
+            itemId,
+        );
+    };
 
-        return result;
+    const handleShowAll = (categoryName: string, totalItems: number) => {
+        setVisibleItems((prevVisibleItems) => ({
+            ...prevVisibleItems,
+            [categoryName]: totalItems,
+        }));
     };
 
     return (
@@ -96,32 +112,48 @@ const SideMenu: React.FC<SideMenuProps> = ({
                             </H4>
                         </AccordionTrigger>
                         <AccordionContent>
-                            {items.map((item) => (
-                                <div
-                                    key={item.id}
-                                    className="flex items-center gap-2 rounded-sm p-2 hover:bg-muted"
-                                >
-                                    <Checkbox
-                                        checked={isChecked(
-                                            categoryName as keyof SelectedFilters,
-                                            item.id,
-                                        )}
-                                        onCheckedChange={() =>
-                                            handleCheckboxChange(
+                            {items
+                                .slice(0, visibleItems[categoryName])
+                                .map((item) => (
+                                    <div
+                                        key={item.id}
+                                        className="flex items-center gap-2 rounded-sm p-2 hover:bg-muted"
+                                    >
+                                        <Checkbox
+                                            checked={isChecked(
                                                 categoryName as keyof SelectedFilters,
                                                 item.id,
-                                            )
-                                        }
-                                        id={item.name + item.id}
-                                    />
-                                    <label
-                                        className="w-full cursor-pointer"
-                                        htmlFor={item.name + item.id}
-                                    >
-                                        {item.name}
-                                    </label>
-                                </div>
-                            ))}
+                                            )}
+                                            onCheckedChange={() =>
+                                                handleCheckboxChange(
+                                                    categoryName as keyof SelectedFilters,
+                                                    item.id,
+                                                )
+                                            }
+                                            id={item.name + item.id}
+                                        />
+                                        <label
+                                            className="w-full cursor-pointer"
+                                            htmlFor={item.name + item.id}
+                                        >
+                                            {item.name}
+                                        </label>
+                                    </div>
+                                ))}
+                            {visibleItems[categoryName] < items.length && (
+                                <Button
+                                    variant="link"
+                                    onClick={() =>
+                                        handleShowAll(
+                                            categoryName,
+                                            items.length,
+                                        )
+                                    }
+                                    className="mt-2 text-sm"
+                                >
+                                    {t('Show more')}
+                                </Button>
+                            )}
                         </AccordionContent>
                     </AccordionItem>
                 ))}

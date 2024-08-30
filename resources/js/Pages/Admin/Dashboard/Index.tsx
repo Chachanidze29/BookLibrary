@@ -40,6 +40,8 @@ export default function Index({
 }) {
     const { t } = useLaravelReactI18n();
 
+    console.log('AAAAA', lend_data);
+
     return (
         <AdminLayout>
             <Head title={t('Admin Dashboard')} />

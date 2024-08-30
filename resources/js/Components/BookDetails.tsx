@@ -2,10 +2,10 @@ import { Link, router, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { BookOpenTextIcon, PencilIcon } from 'lucide-react';
 import { useState } from 'react';
+import { Fragment } from 'react';
 //@ts-ignore
 import ReactStars from 'react-rating-stars-component';
 
-import { Badge } from '@/Components/Badge';
 import { Button } from '@/Components/Button';
 import {
     Card,
@@ -96,7 +96,17 @@ export default function BookDetails({
                 <CardHeader>
                     <CardTitle>{book.title}</CardTitle>
                     <CardDescription>
-                        {book.authors.map((author) => author.name).join(', ')}
+                        {book.authors.map((author, index) => (
+                            <Fragment key={author.id}>
+                                <Link
+                                    className="hover:text-blue-500"
+                                    href={route('authors.show', author.id)}
+                                >
+                                    {author.name}
+                                </Link>
+                                {index < book.authors.length - 1 && ', '}
+                            </Fragment>
+                        ))}
                     </CardDescription>
                 </CardHeader>
 
@@ -171,7 +181,17 @@ export default function BookDetails({
                         </p>
                         <p>
                             {t('Genres')}:{' '}
-                            {book.genres.map((genre) => genre.name).join(', ')}
+                            {book.genres.map((genre, index) => (
+                                <Fragment key={genre.id}>
+                                    <Link
+                                        className="hover:text-blue-500"
+                                        href={route('authors.show', genre.id)}
+                                    >
+                                        {genre.name}
+                                    </Link>
+                                    {index < book.authors.length - 1 && ', '}
+                                </Fragment>
+                            ))}
                         </p>
                     </div>
                 </div>
