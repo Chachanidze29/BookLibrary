@@ -253,6 +253,11 @@ export default function Header({ user }: { user?: User }) {
                                             {t('My Reservations')}
                                         </Link>
                                     </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link href={route('checkout.index')}>
+                                            {t('My Checkouts')}
+                                        </Link>
+                                    </DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem asChild>
                                         <Link
