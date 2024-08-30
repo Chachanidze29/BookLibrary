@@ -134,6 +134,21 @@ export type MyReservation = {
     due_date: string;
 };
 
+export type MyCheckouts = {
+    id: number;
+    book_copy: {
+        id: number;
+        code: string;
+        book: {
+            id: number;
+            title: string;
+        };
+    };
+    checkout_date: string;
+    due_date: string;
+    return_date: string;
+};
+
 export type Review = {
     id: number;
     review: string;

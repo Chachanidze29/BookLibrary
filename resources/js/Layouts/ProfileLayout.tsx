@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 const links = [
     { href: 'profile.edit', label: 'Profile' },
     { href: 'reservation.index', label: 'My Reservations' },
+    { href: 'checkout.index', label: 'My Checkouts' },
 ];
 
 export default function Profile({ children }: PropsWithChildren) {

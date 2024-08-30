@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
@@ -47,6 +48,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 
     Route::resource('reservation', ReservationController::class)
+        ->only(['index', 'store', 'destroy']);
+
+    Route::resource('checkout', CheckoutController::class)
         ->only(['index', 'store', 'destroy']);
 });
 require __DIR__ . '/auth.php';
