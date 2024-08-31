@@ -1,6 +1,6 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { BookOpenTextIcon, PencilIcon } from 'lucide-react';
+import { BookOpenTextIcon, PencilIcon, TrashIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Fragment } from 'react';
 //@ts-ignore
@@ -77,11 +77,17 @@ export default function BookDetails({
     const handleReviewSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            router.post(route('reviews.store'), {
-                book_id: book.id,
-                review: newReview,
-                rating: newRating,
-            });
+            router.post(
+                route('reviews.store'),
+                {
+                    book_id: book.id,
+                    review: newReview,
+                    rating: newRating,
+                },
+                {
+                    preserveScroll: true,
+                },
+            );
             setNewReview('');
             setNewRating(0);
         } catch (error) {
@@ -225,14 +231,36 @@ export default function BookDetails({
                             const { rating } = review;
                             return (
                                 <div key={index} className="mb-4">
-                                    <ReactStars
-                                        count={5}
-                                        value={rating}
-                                        size={20}
-                                        edit={false}
-                                        activeColor="#ffd700"
-                                        key={review.id}
-                                    />
+                                    <div className="align-center flex gap-2 ">
+                                        <ReactStars
+                                            count={5}
+                                            value={rating}
+                                            size={20}
+                                            edit={false}
+                                            activeColor="#ffd700"
+                                            key={review.id}
+                                        />
+                                        {user?.is_admin && (
+                                            <Button
+                                                variant="destructive"
+                                                size="icon"
+                                                onClick={() => {
+                                                    router.delete(
+                                                        route(
+                                                            'admin.reviews.destroy',
+                                                            review.id,
+                                                        ),
+                                                        {
+                                                            preserveScroll:
+                                                                true,
+                                                        },
+                                                    );
+                                                }}
+                                            >
+                                                <TrashIcon className="h-4 w-4" />
+                                            </Button>
+                                        )}
+                                    </div>
                                     <p>{review.review}</p>
                                     <p className="text-muted-foreground">
                                         {review.user.first_name}{' '}

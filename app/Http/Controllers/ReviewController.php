@@ -36,4 +36,10 @@ class ReviewController extends Controller
 
         return redirect()->route('books.show', $book_id);
     }
+
+    public function destroy(Review $review) {
+        $review->delete();
+
+        return redirect()->back();
+    }
 }

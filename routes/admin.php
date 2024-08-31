@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ConfigurationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\MemberController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
@@ -55,4 +56,6 @@ Route::prefix('admin')
             ->name('configuration.index');
         Route::put('configuration', [ConfigurationController::class, 'update'])
             ->name('configuration.update');
+
+        Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     });
