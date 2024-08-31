@@ -201,6 +201,7 @@
     "Edit branch": "ფილიალის რედაქტირება",
     "Make changes and save the branch": "დაარედაქტირე და შეინახე ფილიალი",
     "Delete branch": "ფილიალის წაშლა",
+    "This branch has :count books associated with them. This action is not available until you delete all the books associated with this branch.": "ამ ფილიალს აქვს :count წიგნი, რომლებიც მასთან დაკავშირებულია. ეს ქმედება არ არის ხელმისაწვდომი, სანამ შენ არ წაშლი მასთან დაკავშირებულ ყველა წიგნს.",
     "Are you sure you want to delete this branch? This action cannot be undone.": "ნამდვილად გსურს ამ ფილიალის წაშლა? ეს ქმედება შეუქცევადია.",
 
     "Book Statuses": "წიგნის სტატუსები",

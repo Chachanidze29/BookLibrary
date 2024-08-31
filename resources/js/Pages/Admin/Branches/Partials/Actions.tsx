@@ -37,6 +37,8 @@ export function Actions({ branch }: { branch: Branch }) {
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
+    console.log('AAAAAA', branch);
+
     return (
         <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
@@ -81,10 +83,10 @@ export function Actions({ branch }: { branch: Branch }) {
                             {t('Delete branch')}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            {branch.books_count
+                            {branch.book_copies_count
                                 ? t(
                                       'This branch has :count books associated with them. This action is not available until you delete all the books associated with this branch.',
-                                      { count: branch.books_count },
+                                      { count: branch.book_copies_count },
                                   )
                                 : t(
                                       'Are you sure you want to delete this branch? This action cannot be undone.',
@@ -94,7 +96,7 @@ export function Actions({ branch }: { branch: Branch }) {
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>{t('Cancel')}</AlertDialogCancel>
-                        {!branch.books_count && (
+                        {!branch.book_copies_count && (
                             <AlertDialogAction variant="destructive" asChild>
                                 <Link
                                     href={route(

@@ -78,7 +78,7 @@ export type Branch = {
     phone?: string;
     email?: string;
     working_hours: string;
-    books_count: number;
+    book_copies_count: number;
 };
 
 export type Checkout = {
