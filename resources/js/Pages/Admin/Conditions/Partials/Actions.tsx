@@ -81,10 +81,10 @@ export function Actions({ condition }: { condition: Condition }) {
                             {t('Delete condition')}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            {condition.books_count
+                            {condition.book_copies_count
                                 ? t(
                                       'This condition has :count books associated with them. This action is not available until you delete all the books associated with this condition.',
-                                      { count: condition.books_count },
+                                      { count: condition.book_copies_count },
                                   )
                                 : t(
                                       'Are you sure you want to delete this condition? This action cannot be undone.',
@@ -94,7 +94,7 @@ export function Actions({ condition }: { condition: Condition }) {
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>{t('Cancel')}</AlertDialogCancel>
-                        {!condition.books_count && (
+                        {!condition.book_copies_count && (
                             <AlertDialogAction variant="destructive" asChild>
                                 <Link
                                     href={route(

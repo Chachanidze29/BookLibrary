@@ -61,13 +61,13 @@ export type Genre = {
 export type Condition = {
     id: number;
     name: string;
-    books_count: number;
+    book_copies_count: number;
 };
 
 export type Status = {
     id: number;
     name: string;
-    books_count: number;
+    book_copies_count: number;
 };
 
 export type Branch = {
