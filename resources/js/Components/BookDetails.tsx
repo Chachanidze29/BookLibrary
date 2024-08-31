@@ -185,11 +185,11 @@ export default function BookDetails({
                                 <Fragment key={genre.id}>
                                     <Link
                                         className="hover:text-blue-500"
-                                        href={route('authors.show', genre.id)}
+                                        href={''}
                                     >
                                         {genre.name}
                                     </Link>
-                                    {index < book.authors.length - 1 && ', '}
+                                    {index < book.genres.length - 1 && ', '}
                                 </Fragment>
                             ))}
                         </p>

@@ -237,7 +237,7 @@ export default function Lend({
                                             value={memberInputValue}
                                             onValueChange={setMemberInputValue}
                                             placeholder={t(
-                                                'Start searching...',
+                                                'Start searching by personal number',
                                             )}
                                         />
                                         <CommandList>

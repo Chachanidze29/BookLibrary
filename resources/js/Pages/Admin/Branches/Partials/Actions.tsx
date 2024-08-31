@@ -37,8 +37,6 @@ export function Actions({ branch }: { branch: Branch }) {
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-    console.log('AAAAAA', branch);
-
     return (
         <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>

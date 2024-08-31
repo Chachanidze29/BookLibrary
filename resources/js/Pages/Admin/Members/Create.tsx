@@ -27,7 +27,7 @@ export default function Create() {
         <AdminLayout>
             <Head title={t('Add Member')} />
 
-            <Card className="flex flex-grow flex-col">
+            <Card className="flex flex-col">
                 <CardHeader>
                     <CardTitle>{t('Add Member')}</CardTitle>
                     <CardDescription>
@@ -35,7 +35,7 @@ export default function Create() {
                     </CardDescription>
                 </CardHeader>
 
-                <CardContent className="flex flex-grow flex-col">
+                <CardContent className="flex flex-col">
                     <Form type={FormType.Create} initialData={initialData} />
                 </CardContent>
             </Card>

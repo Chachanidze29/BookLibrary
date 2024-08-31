@@ -28,6 +28,7 @@ class MemberService
         ])->assignRole(RolesEnum::MEMBER);
 
         $member->notify(new MemberAdded($password));
+        $member->sendEmailVerificationNotification();
 
         return $member;
     }

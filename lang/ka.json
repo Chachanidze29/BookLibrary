@@ -36,7 +36,7 @@
     "Confirm password": "დაადასტურე პაროლი",
 
     "Email Verification": "ელ-ფოსტის ვერიფიკაცია",
-    "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.": "გმადლობთ რომ გაიარეთ რეგისტრაცია! დაწყებამდე, გთხოვთ დაადასტუროთ თქვენი ელ-ფოსტა ლინკზე დაწკაპებით, რომელიც ჩვენ გაგიგზავნეთ. თუ წერილი არ მიიღეთ, ჩვენ სიამოვნებით გამოგიგზავნით ხელახლა.",
+    "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.": "გმადლობთ რომ გაიარეთ რეგისტრაცია! დაწყებამდე, გთხოვთ დაადასტუროთ თქვენი ელ-ფოსტა ლინკზე დაწკაპებით, რომელიც ჩვენ გამოგიგზავნეთ. თუ წერილი არ მიიღეთ, ჩვენ სიამოვნებით გამოგიგზავნით ხელახლა.",
     "Resend Verification Email": "წერილის ხელახლა გაგზავნა",
     "A new verification link has been sent.": "ვერიფიკაციის ახალი ლინკი გაიგზავნა.",
 
@@ -63,6 +63,7 @@
     "An error occurred while deleting the reservation.": "დაჯავშნის წაშლისას შეცდომა მოხდა.",
 
     "Start searching...": "დაიწყე ძიება...",
+    "Start searching by personal number": "მოძებნე პირადი ნომრით",
     "Columns": "სვეტები",
     "No results": "არაფერი მოიძებნა",
     "row(s)": "ჩანაწერი",
@@ -232,7 +233,7 @@
     "Members": "მკითხველები",
     "View and manage members": "მკითხველების დათვალიერება და მართვა",
     "Add Member": "მკითხველის დამატება",
-    "Create and add a new member": "შექმენი და დაამატე ახალი მკითხველის დამატება",
+    "Create and add a new member": "შექმენი და დაამატე ახალი მკითხველი",
     "Delete member": "მკითხველის წაშლა",
     "Are you sure you want to delete this member? This action cannot be undone.": "ნამდვილად გსურს ამ მკითხველის წაშლა? ეს ქმედება შეუქცევადია.",
 
