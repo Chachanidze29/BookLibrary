@@ -37,12 +37,11 @@ export default function Checkouts({ checkouts }: { checkouts: MyCheckouts[] }) {
                 <CardContent>
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="flex justify-between">
                                 <TableHead>{t('Book')}</TableHead>
                                 <TableHead>{t('Checkout date')}</TableHead>
                                 <TableHead>{t('Due date')}</TableHead>
                                 <TableHead>{t('Return date')}</TableHead>
-                                <TableHead />
                             </TableRow>
                         </TableHeader>
                         <TableBody>

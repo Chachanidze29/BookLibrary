@@ -74,11 +74,10 @@ export default function Reservations({
                 <CardContent>
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="flex justify-between">
                                 <TableHead>{t('Book')}</TableHead>
                                 <TableHead>{t('Reserve date')}</TableHead>
                                 <TableHead>{t('Due date')}</TableHead>
-                                <TableHead />
                             </TableRow>
                         </TableHeader>
                         <TableBody>
