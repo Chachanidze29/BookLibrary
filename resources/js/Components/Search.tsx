@@ -18,7 +18,9 @@ export function Search({ className }: { className?: string }) {
     };
 
     return (
-        <div className={cn('flex w-full items-center gap-2', className)}>
+        <div
+            className={cn('flex w-full flex-col items-center gap-2', className)}
+        >
             <Input
                 type="text"
                 value={query}
@@ -34,7 +36,7 @@ export function Search({ className }: { className?: string }) {
                 className="h-11"
             />
 
-            <Button size="lg" onClick={handleSearch}>
+            <Button size="lg" className="mt-2" onClick={handleSearch}>
                 <SearchIcon className="mr-2 h-4 w-4" />
                 {t('Search')}
             </Button>

@@ -348,5 +348,7 @@
 
     "Languages": "Languages",
     "Statuses": "Statuses",
-    "Conditions": "Conditions"
+    "Conditions": "Conditions",
+
+    ":count Search Results": ":count Search Results"
 }

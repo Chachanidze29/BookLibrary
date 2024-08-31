@@ -1,5 +1,6 @@
 import { PageProps as InertiaPageProps } from '@inertiajs/core';
 import { Link, usePage } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import { Button } from '@/Components/Button';
 import MainLayout from '@/Layouts/MainLayout';
@@ -28,6 +29,8 @@ const BooksList = () => {
 
     const { data, links } = books;
 
+    const { t } = useLaravelReactI18n();
+
     const {
         auth: { user },
     } = usePage<MainPageProps>().props;
@@ -36,7 +39,7 @@ const BooksList = () => {
         <MainLayout>
             <div className="mx-auto w-9/12">
                 <h1 className="text-2xl font-bold">
-                    {data.length} Search Results
+                    {t(':count Search Results', { count: data.length })}
                 </h1>
                 <div className="flex flex-col items-start justify-start">
                     {data.map((book) => (

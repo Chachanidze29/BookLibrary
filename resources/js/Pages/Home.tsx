@@ -31,7 +31,7 @@ export default function Home({
 
             <div className="-mt-8 bg-primary-foreground py-12">
                 <div className="container flex flex-col items-center gap-4">
-                    <h1 className="text-4xl font-bold">
+                    <h1 className="text-center text-4xl font-bold">
                         {t('Hello, Reader!')}
                     </h1>
                     <p className="text-lg">{t('Find your next book here')}</p>

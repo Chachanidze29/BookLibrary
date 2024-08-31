@@ -350,5 +350,7 @@
 
     "Languages": "ენები",
     "Statuses": "სტატუსები",
-    "Conditions": "მდგომარეობები"
+    "Conditions": "მდგომარეობები",
+
+    ":count Search Results": ":count შედეგი"
 }

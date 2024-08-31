@@ -19,6 +19,7 @@ export default function About({
             <Head title={t('About Us')} />
             <div className="container p-4">
                 <Textarea
+                    value={about}
                     readOnly
                     style={{
                         cursor: 'auto',
@@ -33,9 +34,7 @@ export default function About({
                         resize: 'none',
                         userSelect: 'none',
                     }}
-                >
-                    {about}
-                </Textarea>
+                />
                 <p className="mb-2 mt-4 text-lg font-semibold">
                     {t('Branches')}
                 </p>
