@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { BookOpenTextIcon } from 'lucide-react';
 import { Fragment } from 'react';
@@ -9,6 +9,24 @@ import { Book } from '@/types/model';
 
 export const BookCardLarge = ({ book }: { book: Book }) => {
     const { t } = useLaravelReactI18n();
+
+    const handleWishlistClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (book.is_in_wishlist) {
+            removeFromWishlist();
+        } else {
+            addToWishlist();
+        }
+    };
+
+    const addToWishlist = () => {
+        router.post(route('wishlist.store'), { book_id: book.id });
+    };
+
+    const removeFromWishlist = () => {
+        router.delete(route('wishlist.destroy', book.id));
+    };
+    console.log('AAAAAA', book);
 
     return (
         <>
@@ -49,8 +67,14 @@ export const BookCardLarge = ({ book }: { book: Book }) => {
             </div>
             <div className="flex flex-col items-end">
                 <Button variant="outline">{t('Reserve')}</Button>
-                <Button variant="outline" className="mt-2">
-                    {t('Add To Wishlist')}
+                <Button
+                    variant="outline"
+                    onClick={handleWishlistClick}
+                    className="mt-2"
+                >
+                    {t(
+                        `${!book.is_in_wishlist ? 'Add To' : 'Remove From'} Wishlist`,
+                    )}
                 </Button>
             </div>
         </>

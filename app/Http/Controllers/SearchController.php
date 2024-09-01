@@ -10,6 +10,7 @@ use App\Models\Condition;
 use App\Models\Genre;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class SearchController extends Controller
@@ -69,6 +70,12 @@ class SearchController extends Controller
         }
 
         $books = $query->with('authors')->paginate(20);
+
+        $wishlistBookIds = Auth::check() ? Auth::user()->wishlists->pluck('book_id')->toArray() : [];
+        $books->getCollection()->transform(function ($book) use ($wishlistBookIds) {
+            $book->is_in_wishlist = in_array($book->id, $wishlistBookIds);
+            return $book;
+        });
 
         return Inertia::render('Search/BooksList', [
             'books' => $books,

@@ -25,18 +25,24 @@ class WishlistController extends Controller
         return inertia('Wishlist', ['wishlists' => $wishlists]);
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
             'book_id' => 'required|exists:books,id',
         ]);
 
-        Auth::user()->wishlists()->create([
+        $user = Auth::user();
+        $exists = $user->wishlists()->where('book_id', $request->book_id)->exists();
+
+        if ($exists) {
+            return redirect()->route('wishlist')->with('message', 'Book is already in your wishlist.');
+        }
+
+        $user->wishlists()->create([
             'book_id' => $request->book_id,
         ]);
 
-        return redirect()->route('wishlist');
+        return redirect()->route('wishlist')->with('message', 'Book added to your wishlist.');
     }
 
     public function destroy($id)
