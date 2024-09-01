@@ -35,7 +35,8 @@ COPY . /var/www/html
 
 RUN composer install --optimize-autoloader --no-dev
 
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 RUN npm run build
 
 RUN mkdir -p storage/framework/cache/data \
