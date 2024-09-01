@@ -350,5 +350,6 @@
     "Statuses": "Statuses",
     "Conditions": "Conditions",
 
-    ":count Search Results": ":count Search Results"
+    ":count Search Results": ":count Search Results",
+    "Published in :date": "Published in :date"
 }

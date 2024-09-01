@@ -103,7 +103,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
                 {t('Clear')}
             </Button>
 
-            <Accordion type="multiple" defaultValue={Object.keys(categories)}>
+            <Accordion type="multiple" defaultValue={[]}>
                 {Object.entries(categories).map(([categoryName, items]) => (
                     <AccordionItem key={categoryName} value={categoryName}>
                         <AccordionTrigger>

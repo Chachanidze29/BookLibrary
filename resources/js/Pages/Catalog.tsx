@@ -46,8 +46,8 @@ const Catalog: React.FC<CatalogProps> = () => {
     return (
         <MainLayout>
             <Head title={t('Catalog')} />
-            <div className="container flex gap-6">
-                <div className="w-1/4">
+            <div className="container flex flex-col gap-6 lg:flex-row">
+                <div className="w-full lg:w-1/4">
                     <SideMenu
                         categories={categories}
                         filters={filters}
@@ -55,13 +55,13 @@ const Catalog: React.FC<CatalogProps> = () => {
                     />
                 </div>
 
-                <div className="w-3/4">
+                <div className="w-full lg:w-3/4">
                     {filteredBooks.length === 0 ? (
-                        <div className="p-10 text-center">
-                            <h2 className="text-2xl font-bold text-gray-700">
+                        <div className="p-6 text-center">
+                            <h2 className="text-xl font-bold text-gray-700 lg:text-2xl">
                                 {t('No books available')}
                             </h2>
-                            <p className="mt-4 text-gray-500">
+                            <p className="mt-2 text-gray-500 lg:mt-4">
                                 {t(
                                     'Please adjust your filters or check back later.',
                                 )}
@@ -69,7 +69,7 @@ const Catalog: React.FC<CatalogProps> = () => {
                         </div>
                     ) : (
                         <>
-                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                                 {filteredBooks.map((book) => (
                                     <BookCard key={book.id} book={book} />
                                 ))}
@@ -80,7 +80,7 @@ const Catalog: React.FC<CatalogProps> = () => {
                                         <Link
                                             key={index}
                                             disabled={!link.url}
-                                            className={`mx-1 px-2 py-1 ${link.active ? 'font-bold' : 'text-gray-500'}`}
+                                            className={`mx-1 px-2 py-1 text-sm lg:text-base ${link.active ? 'font-bold' : 'text-gray-500'}`}
                                             href={link.url ? link.url : '#'}
                                             dangerouslySetInnerHTML={{
                                                 __html: link.label,

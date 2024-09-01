@@ -1,5 +1,6 @@
 import { Link, router } from '@inertiajs/react';
 import { BookOpenTextIcon, HeartIcon } from 'lucide-react';
+import { Fragment } from 'react';
 
 import { Card, CardContent, CardHeader } from '@/Components/Card';
 import Image from '@/Components/Image';
@@ -55,7 +56,17 @@ export function BookCard({ book }: { book: Book }) {
                         {book.title}
                     </p>
                     <p className="line-clamp-2 text-sm text-muted-foreground">
-                        {book.authors.map((author) => author.name).join(', ')}
+                        {book.authors.map((author, index) => (
+                            <Fragment key={author.id}>
+                                <Link
+                                    className="hover:text-blue-500"
+                                    href={route('authors.show', author.id)}
+                                >
+                                    {author.name}
+                                </Link>
+                                {index < book.authors.length - 1 && ', '}
+                            </Fragment>
+                        ))}
                     </p>
                 </CardContent>
             </Card>

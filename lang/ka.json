@@ -89,7 +89,7 @@
 
     "My Wishlist": "ჩემი სასურველები",
     "Remove From Wishlist": "სასურველების წაშლა",
-    "Add To Wishlist": "სასურველების დამატება",
+    "Add To Wishlist": "სასურველებში დამატება",
 
     "Lend": "გაცემა",
     "Lend a book": "წიგნის გაცემა",
@@ -352,5 +352,6 @@
     "Statuses": "სტატუსები",
     "Conditions": "მდგომარეობები",
 
-    ":count Search Results": ":count შედეგი"
+    ":count Search Results": ":count შედეგი",
+    "Published in :date": "გამოქვეყნდა :date"
 }
