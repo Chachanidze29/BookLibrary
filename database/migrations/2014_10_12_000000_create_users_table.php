@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone_number', 9)->unique()->nullable();
             $table->string('personal_number', 11)->unique()->nullable();
             $table->string('password');
+            $table->string('google_id')->nullable();
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();

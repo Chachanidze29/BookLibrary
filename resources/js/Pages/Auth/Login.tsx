@@ -9,6 +9,7 @@ import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
 import MainLayout from '@/Layouts/MainLayout';
+import { GoogleIcon } from '@/icons/GoogleIcon';
 
 export default function Login({
     canResetPassword,
@@ -113,6 +114,21 @@ export default function Login({
                                 >
                                     {t('Login')}
                                 </Button>
+                                <Link
+                                    href={route('google.auth')}
+                                    className="mt-2 w-full"
+                                >
+                                    <Button
+                                        type="button"
+                                        className="flex w-full items-center justify-center border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-100"
+                                        disabled={processing}
+                                    >
+                                        <GoogleIcon className="mr-3 h-6 w-6" />{' '}
+                                        <span className="text-lg">
+                                            {t('Sign in with Google')}
+                                        </span>{' '}
+                                    </Button>
+                                </Link>
                             </div>
                             <div className="mt-4 text-center text-sm">
                                 {t("Don't have an account?")}{' '}

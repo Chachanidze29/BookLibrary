@@ -8,6 +8,7 @@ import { Input } from '@/Components/Input';
 import { InputError } from '@/Components/InputError';
 import { Label } from '@/Components/Label';
 import MainLayout from '@/Layouts/MainLayout';
+import { GoogleIcon } from '@/icons/GoogleIcon';
 
 export default function Register() {
     const { t } = useLaravelReactI18n();
@@ -47,6 +48,7 @@ export default function Register() {
                     <CardContent>
                         <form onSubmit={handleSubmit}>
                             <div className="grid items-start gap-4 sm:grid-cols-2">
+                                {/* Registration form fields */}
                                 <div className="grid gap-2">
                                     <Label htmlFor="first_name">
                                         {t('First name')}
@@ -178,6 +180,22 @@ export default function Register() {
                                 >
                                     {t('Register')}
                                 </Button>
+
+                                <Link
+                                    href={route('google.auth')}
+                                    className="mt-2 w-full sm:col-span-2"
+                                >
+                                    <Button
+                                        type="button"
+                                        className="flex w-full items-center justify-center border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-100"
+                                        disabled={processing}
+                                    >
+                                        <GoogleIcon className="mr-3 h-6 w-6" />{' '}
+                                        <span className="text-lg">
+                                            {t('Sign in with Google')}
+                                        </span>{' '}
+                                    </Button>
+                                </Link>
                             </div>
                             <div className="mt-4 text-center text-sm">
                                 {t('Already have an account?')}{' '}
