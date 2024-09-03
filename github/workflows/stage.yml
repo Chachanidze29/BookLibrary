@@ -2,26 +2,18 @@ name: Staging deployment
 
 on:
   push:
-    tags:
-      - stage-*
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout files
-        uses: actions/checkout@v2
-
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@v1
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          repository: chachanidze29/book-library
-#          tags: |
-#            latest
-#            ${{ github.sha }}
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+        run: docker build . --file docker-compose.prod.yml --tag my-image-name:$(date +%s)
 
   deploy:
     needs: build
