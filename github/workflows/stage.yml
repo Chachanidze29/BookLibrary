@@ -1,0 +1,46 @@
+name: Staging deployment
+
+on:
+  push:
+    tags:
+      - stage-*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v2
+
+#      - name: Build and push Docker images
+#        uses: docker/build-push-action@v1
+#        with:
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+#          repository: chachanidze29/book-library
+#          tags: |
+#            latest
+#            ${{ github.sha }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v2
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Deploy to Droplet
+        run: |
+          ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
+          cd /home/laravel/book-library
+          git pull origin main
+          docker-compose down
+          docker-compose pull
+          docker-compose up -d --build
+          EOF
