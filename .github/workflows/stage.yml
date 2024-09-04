@@ -27,6 +27,9 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add passphrase
+        run: echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add -
       - name: Deploy to Droplet
         run: |
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
