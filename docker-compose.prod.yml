@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   laravel.app:
-    container_name: app
+    container_name: library-app
     build:
       context: .
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
       - mysql
 
   nginx:
-    container_name: nginx
+    container_name: library-nginx
     image: nginx:alpine
     ports:
       - '80:80'
@@ -31,7 +31,7 @@ services:
       - laravel
 
   mysql:
-    container_name: mysql
+    container_name: library-mysql
     image: 'mysql/mysql-server:8.0'
     environment:
       MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'

@@ -27,6 +27,10 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Add SSH passphrase
+        run: echo "$SSH_PASSPHRASE" | ssh-add -
+        env:
+          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
 
       - name: Deploy to Droplet
         run: |
