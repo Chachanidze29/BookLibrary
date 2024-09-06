@@ -13,6 +13,7 @@ import {
     useReactTable,
 } from '@tanstack/react-table';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
+import { capitalize, startCase, toLower } from 'lodash';
 import * as React from 'react';
 
 import {
@@ -97,7 +98,9 @@ export function DataTable<TData extends { id?: number }, TValue>({
         <div className="flex w-full flex-grow flex-col">
             <div className="flex items-center gap-2 pb-4">
                 <Input
-                    placeholder={t('Start searching...')}
+                    placeholder={t('Start searching by :column...', {
+                        column: startCase(toLower(t(filterBy))),
+                    })}
                     value={
                         (table
                             .getColumn(filterBy)
