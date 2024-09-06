@@ -5,7 +5,7 @@ import { DataTable } from '@/Components/DataTable';
 import Image from '@/Components/Image';
 import { H4 } from '@/Components/Typography/H4';
 import { columns } from '@/Pages/Admin/Books/Partials/columns';
-import { Author, Book } from '@/types/model';
+import { Author } from '@/types/model';
 
 export default function AuthorDetails({ author }: { author: Author }) {
     const { t } = useLaravelReactI18n();
