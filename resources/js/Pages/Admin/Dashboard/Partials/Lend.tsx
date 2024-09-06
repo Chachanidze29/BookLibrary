@@ -124,7 +124,25 @@ export default function Lend({
     };
 
     const renderBookOptions = () => {
-        return book_copies.map((bookCopy) => (
+        if (!data.member_id) return [];
+
+        const member = members.filter(
+            (member) => member.id === data.member_id,
+        )[0];
+
+        const reservedBookCopyIds = member.reservations.map(
+            (reserved) => reserved.book_copy_id,
+        );
+
+        const sortedBookCopies = book_copies.sort((a, b) => {
+            const isReservedA = reservedBookCopyIds.includes(a.id);
+            const isReservedB = reservedBookCopyIds.includes(b.id);
+            if (isReservedA && !isReservedB) return -1;
+            if (!isReservedA && isReservedB) return 1;
+            return 0;
+        });
+
+        return sortedBookCopies.map((bookCopy) => (
             <CommandItem
                 key={bookCopy.id}
                 value={bookCopy.code}

@@ -1,6 +1,6 @@
 import { RowData } from '@tanstack/react-table';
 
-import { User } from '@/types/model';
+import { Reservation, User } from '@/types/model';
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
@@ -26,6 +26,7 @@ export type LendData = {
         last_name: string;
         personal_number: string;
         checkouts_count: number;
+        reservations: Reservation[];
     }[];
     book_copies: {
         id: number;

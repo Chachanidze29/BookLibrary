@@ -80,10 +80,10 @@ export default function Return({
         return members.map((member) => (
             <CommandItem
                 key={member.id}
-                value={member.personal_number}
+                value={member.first_name}
                 onSelect={(currentValue) => {
                     const memberId = members.filter(
-                        (member) => member.personal_number === currentValue,
+                        (member) => member.first_name === currentValue,
                     )[0].id;
                     reset();
                     setData((data) => ({ ...data, member_id: memberId }));

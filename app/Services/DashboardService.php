@@ -23,10 +23,12 @@ class DashboardService
             'members' => User::role(RolesEnum::MEMBER)
                 ->whereHas('checkouts', fn($query) => $query->isNotReturned(), '<', $maxLentBooks)
                 ->select('id', 'first_name', 'last_name', 'personal_number')
+                ->with(['reservations' => fn($query) => $query->select('id', 'user_id', 'book_copy_id')])
                 ->withCount(['checkouts' => fn($query) => $query->isNotReturned()])
+                ->orderByRaw('(SELECT COUNT(*) FROM reservations WHERE reservations.user_id = users.id) DESC')
                 ->get(),
             'book_copies' => BookCopy::with('book:id,title', 'branch:id,name')
-                ->withStatus([BookCopyStatus::AVAILABLE])
+                ->withStatus([BookCopyStatus::AVAILABLE, BookCopyStatus::RESERVED])
                 ->select('id', 'code', 'book_id', 'branch_id')
                 ->get(),
             'max_lent_books' => $maxLentBooks,
