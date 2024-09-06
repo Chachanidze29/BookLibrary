@@ -34,6 +34,9 @@ jobs:
           cd /home/laravel/book-library
           docker system prune -f
           docker volume prune -f
+          git reset --hard
+          git clean -fd
+          git pull origin main
           git pull origin main
           docker-compose down
           docker-compose pull
