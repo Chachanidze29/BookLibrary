@@ -101,10 +101,10 @@ export default function Lend({
         return members.map((member) => (
             <CommandItem
                 key={member.id}
-                value={member.personal_number}
+                value={member.first_name}
                 onSelect={(currentValue) => {
                     const memberId = members.filter(
-                        (member) => member.personal_number === currentValue,
+                        (member) => member.first_name === currentValue,
                     )[0].id;
                     setData('member_id', memberId);
                     setMemberPopoverOpen(false);
@@ -237,7 +237,7 @@ export default function Lend({
                                             value={memberInputValue}
                                             onValueChange={setMemberInputValue}
                                             placeholder={t(
-                                                'Start searching by personal number',
+                                                'Start searching by name',
                                             )}
                                         />
                                         <CommandList>
@@ -290,7 +290,7 @@ export default function Lend({
                                                 setBookCopiesInputValue
                                             }
                                             placeholder={t(
-                                                'Start searching...',
+                                                'Start searching by code',
                                             )}
                                         />
                                         <CommandList>

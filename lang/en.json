@@ -62,6 +62,8 @@
     "Reservation was deleted successfully!": "Reservation was deleted successfully!",
     "An error occurred while deleting the reservation.": "An error occurred while deleting the reservation.",
     "Start searching by :column...": "Start searching by :column...",
+    "Start searching by name": "Start searching by name",
+    "Start searching by code": "Start searching by code",
     "Columns": "Columns",
     "code": "code",
     "title": "Title",
