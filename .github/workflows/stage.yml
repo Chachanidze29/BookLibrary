@@ -32,7 +32,10 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
           cd /home/laravel/book-library
+          docker system prune -f
+          docker volume prune -f
           git pull origin main
           docker-compose down
           docker-compose pull
           docker-compose -f docker-compose.prod.yml up --build -d
+          EOF
