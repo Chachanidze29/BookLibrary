@@ -8,7 +8,9 @@ use Inertia\Inertia;
 class AuthorController extends Controller
 {
     public function show(Author $author) {
-        $author->load(['books', 'books.language']);
+        $author = Author::with(['books.language', 'books' => function($query) {
+            $query->withCount('bookCopies');
+        }])->find($author->id);
 
         return Inertia::render('Authors/Show', [
             'author' => $author,

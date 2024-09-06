@@ -7,14 +7,10 @@ import { H4 } from '@/Components/Typography/H4';
 import { columns } from '@/Pages/Admin/Books/Partials/columns';
 import { Author, Book } from '@/types/model';
 
-export default function AuthorDetails({
-    author,
-    books,
-}: {
-    author: Author;
-    books?: Book[];
-}) {
+export default function AuthorDetails({ author }: { author: Author }) {
     const { t } = useLaravelReactI18n();
+
+    const { books } = author;
 
     return (
         <Card className="flex flex-grow flex-col">
