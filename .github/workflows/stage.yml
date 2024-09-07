@@ -40,5 +40,4 @@ jobs:
           docker-compose down
           docker-compose pull
           docker-compose -f docker-compose.prod.yml up --build -d
-          docker exec library-app npm run build
           EOF
