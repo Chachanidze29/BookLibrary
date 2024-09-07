@@ -49,8 +49,10 @@ Route::prefix('admin')
         Route::resource('statuses', BookCopyStatusController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 
-        Route::resource('branches', BranchController::class)
-            ->only(['index', 'store', 'update', 'destroy']);
+        Route::get('branches', [BranchController::class, 'index'])->name('branches.index');
+        Route::post('branches', [BranchController::class, 'store'])->name('branches.store');
+        Route::put('branches/{branch}', [BranchController::class, 'update'])->name('branches.update');
+        Route::delete('branches/{branch}', [BranchController::class, 'destroy'])->name('branches.destroy');
 
         Route::get('configuration', [ConfigurationController::class, 'index'])
             ->name('configuration.index');
