@@ -39,6 +39,10 @@ COPY package.json package-lock.json ./
 RUN npm ci
 RUN npm run build
 
+RUN rm -rf public/storage
+
+RUN php artisan storage:link
+
 COPY ./public /var/www/html/public
 
 RUN mkdir -p storage/framework/cache/data \
