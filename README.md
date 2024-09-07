@@ -31,17 +31,41 @@ If you have any questions or demands, please contact me on my email: chachanidze
     ```bash
     cd book-library
     ```
+   
+3. Install composer dependencies:
 
-3. Install dependencies:
+    ```bash
+    composer install
+    ```
+
+4. Create a new `.env` file by copying the example:
+
+    ```bash
+    cp .env.example .env
+    ```
+   
+5. Generate a new application key:
+
+    ```bash
+    sail artisan key:generate
+    ```
+
+6. Run the application backend:
+
+    ```bash
+    sail up
+    ```
+
+7. Install npm dependencies:
 
     ```bash
     npm install
     ```
 
-4. Run the application:
+8. Run the application frontend:
 
     ```bash
-    npm start
+    npm run dev
     ```
 
 ## Usage
