@@ -34,7 +34,7 @@ export default function Home({
                     <h1 className="text-center text-4xl font-bold">
                         {t('Hello, Reader!')}
                     </h1>
-                    <p className="text-lg">{t('Find your next book here!')}</p>
+                    <p className="text-lg">{t('Find your next book here')}</p>
 
                     <Search className="my-4 w-full md:w-2/3" />
                     <p className="text-muted-foreground">{t('or')}</p>
