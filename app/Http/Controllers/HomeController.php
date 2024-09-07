@@ -10,7 +10,7 @@ use Inertia\Inertia;
 class HomeController extends Controller
 {
     public function index() {
-        $newBooks = Book::with('authors')
+        $newBooks = Book::with(['authors', 'bookCopies.branch'])
             ->orderBy('created_at', 'desc')
             ->limit(12)
             ->get();

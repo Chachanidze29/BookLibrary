@@ -1,31 +1,15 @@
-import { Link, router } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { BookOpenTextIcon } from 'lucide-react';
 import { Fragment } from 'react';
 
-import { Button } from '@/Components/Button';
+import { BookReservationDialog } from '@/Components/BookReservationDialog';
 import Image from '@/Components/Image';
+import { WishlistButton } from '@/Components/WishlistButton';
 import { Book } from '@/types/model';
 
 export const BookCardLarge = ({ book }: { book: Book }) => {
     const { t } = useLaravelReactI18n();
-
-    const handleWishlistClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        if (book.is_in_wishlist) {
-            removeFromWishlist();
-        } else {
-            addToWishlist();
-        }
-    };
-
-    const addToWishlist = () => {
-        router.post(route('wishlist.store'), { book_id: book.id });
-    };
-
-    const removeFromWishlist = () => {
-        router.delete(route('wishlist.destroy', book.id));
-    };
 
     return (
         <>
@@ -65,16 +49,8 @@ export const BookCardLarge = ({ book }: { book: Book }) => {
                 </div>
             </div>
             <div className="flex flex-col items-end">
-                <Button variant="outline">{t('Reserve')}</Button>
-                <Button
-                    variant="outline"
-                    onClick={handleWishlistClick}
-                    className="mt-2"
-                >
-                    {t(
-                        `${!book.is_in_wishlist ? 'Add To' : 'Remove From'} Wishlist`,
-                    )}
-                </Button>
+                <BookReservationDialog book={book} />
+                <WishlistButton book={book} isIcon={false} />
             </div>
         </>
     );

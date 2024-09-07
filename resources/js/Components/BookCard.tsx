@@ -1,44 +1,19 @@
-import { Link, router } from '@inertiajs/react';
-import { BookOpenTextIcon, HeartIcon } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { BookOpenTextIcon } from 'lucide-react';
 import { Fragment } from 'react';
 
-import { Card, CardContent, CardHeader } from '@/Components/Card';
+import { BookReservationDialog } from '@/Components/BookReservationDialog';
+import { Card, CardContent, CardFooter, CardHeader } from '@/Components/Card';
 import Image from '@/Components/Image';
-import { cn } from '@/lib/utils';
+import { WishlistButton } from '@/Components/WishlistButton';
 import { Book } from '@/types/model';
 
 export function BookCard({ book }: { book: Book }) {
-    const addToWishlist = () => {
-        router.post(route('wishlist.store', { book_id: book.id }));
-    };
-
-    const removeFromWishlist = () => {
-        router.delete(route('wishlist.destroy', book.id));
-    };
-
-    const handleWishlistClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-
-        if (book.is_in_wishlist) {
-            removeFromWishlist();
-        } else {
-            addToWishlist();
-        }
-    };
-
     return (
-        <Link href={route('books.show', book.id)}>
-            <Card className="transition-shadow duration-300 hover:shadow-md">
+        <Card className="group relative transition-shadow duration-300 hover:shadow-md">
+            <Link href={route('books.show', book.id)} className="block">
                 <CardHeader className="relative aspect-3/4 justify-center">
-                    <HeartIcon
-                        onClick={handleWishlistClick}
-                        className={cn(
-                            'absolute right-1 top-1 text-red-500 hover:fill-red-500',
-                            { 'fill-red-500': book.is_in_wishlist },
-                            'transition-transform duration-300 hover:scale-110',
-                        )}
-                    />
-
+                    <WishlistButton book={book} isIcon />{' '}
                     {book.cover_image ? (
                         <Image
                             src={'/storage/' + book.cover_image}
@@ -69,7 +44,11 @@ export function BookCard({ book }: { book: Book }) {
                         ))}
                     </p>
                 </CardContent>
-            </Card>
-        </Link>
+            </Link>
+
+            <CardFooter className="absolute bottom-4 left-0 right-0 flex justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <BookReservationDialog book={book} />
+            </CardFooter>
+        </Card>
     );
 }

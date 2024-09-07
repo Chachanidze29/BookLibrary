@@ -33,7 +33,7 @@ class CatalogController extends Controller
             });
         }
 
-        $books = $query->with(['authors', 'genres'])->paginate(27);
+        $books = $query->with(['authors', 'genres', 'bookCopies.branch'])->paginate(27);
 
         // Get the current user's wishlist book IDs
         $wishlistBookIds = Auth::check() ? Auth::user()->wishlists->pluck('book_id')->toArray() : [];

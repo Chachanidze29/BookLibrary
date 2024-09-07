@@ -69,7 +69,7 @@ class SearchController extends Controller
             });
         }
 
-        $books = $query->with('authors')->paginate(20);
+        $books = $query->with(['authors', 'bookCopies.branch'])->paginate(20);
 
         $wishlistBookIds = Auth::check() ? Auth::user()->wishlists->pluck('book_id')->toArray() : [];
         $books->getCollection()->transform(function ($book) use ($wishlistBookIds) {

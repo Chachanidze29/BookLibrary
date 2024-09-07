@@ -12,7 +12,7 @@ class WishlistController extends Controller
         $user = Auth::user();
 
         $wishlists = $user->wishlists()
-            ->with('book.authors')
+            ->with(['book.authors', 'book.bookCopies.branch'])
             ->orderBy('created_at', 'desc')
             ->get();
 

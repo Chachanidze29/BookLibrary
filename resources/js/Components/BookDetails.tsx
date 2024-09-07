@@ -22,12 +22,12 @@ import {
     DialogTitle,
 } from '@/Components/Dialog';
 import Image from '@/Components/Image';
+import { Textarea } from '@/Components/Textarea';
 import { H4 } from '@/Components/Typography/H4';
+import { WishlistButton } from '@/Components/WishlistButton';
 import { columns } from '@/Pages/Admin/Books/Copies/Partials/columns';
 import { PageProps, SelectOption } from '@/types';
 import { Book, BookCopy, Review } from '@/types/model';
-
-import { Textarea } from './Textarea';
 
 export default function BookDetails({
     book,
@@ -56,23 +56,6 @@ export default function BookDetails({
     const [newReview, setNewReview] = useState('');
     const [newRating, setNewRating] = useState(0);
     const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
-
-    const handleWishlistClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        if (book.is_in_wishlist) {
-            removeFromWishlist();
-        } else {
-            addToWishlist();
-        }
-    };
-
-    const addToWishlist = () => {
-        router.post(route('wishlist.store'), { book_id: book.id });
-    };
-
-    const removeFromWishlist = () => {
-        router.delete(route('wishlist.destroy', book.id));
-    };
 
     const handleReviewSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -145,14 +128,7 @@ export default function BookDetails({
                             </Button>
                         </>
                     ) : (
-                        <Button
-                            className="w-full"
-                            onClick={handleWishlistClick}
-                        >
-                            {book.is_in_wishlist
-                                ? t('Remove From Wishlist')
-                                : t('Add To Wishlist')}
-                        </Button>
+                        <WishlistButton book={book} isIcon={false} />
                     )}
                 </div>
             </div>
