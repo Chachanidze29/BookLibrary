@@ -31,13 +31,13 @@ RUN rm -rf /var/cache/apk/*
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY . /var/www/html
-
 RUN composer install --optimize-autoloader --no-dev
 
 COPY package.json package-lock.json ./
 RUN npm ci
 RUN npm run build
+
+COPY . /var/www/html
 
 RUN mkdir -p storage/framework/cache/data \
     && mkdir -p storage/framework/sessions \
