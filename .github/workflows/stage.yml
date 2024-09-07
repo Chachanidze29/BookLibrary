@@ -41,10 +41,3 @@ jobs:
           docker-compose pull
           docker-compose -f docker-compose.prod.yml up --build -d
           EOF
-
-      - name: Build Frontend Assets
-        run: |
-          ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
-          docker exec -w /var/www/html library-app npm run build
-          EOF
-
