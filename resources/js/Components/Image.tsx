@@ -4,7 +4,7 @@ interface ImageComponentProps {
     src?: string;
     alt: string;
     fallbackSrc: string;
-    [key: string]: any; // Allows additional props
+    [key: string]: any;
 }
 
 const Image: React.FC<ImageComponentProps> = ({
@@ -25,7 +25,7 @@ const Image: React.FC<ImageComponentProps> = ({
             alt={alt}
             onError={handleError}
             className="max-w-sm rounded-lg shadow-md"
-            {...props} // Spread additional props
+            {...props}
         />
     );
 };

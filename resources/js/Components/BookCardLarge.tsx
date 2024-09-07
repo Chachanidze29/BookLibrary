@@ -26,7 +26,6 @@ export const BookCardLarge = ({ book }: { book: Book }) => {
     const removeFromWishlist = () => {
         router.delete(route('wishlist.destroy', book.id));
     };
-    console.log('AAAAAA', book);
 
     return (
         <>
@@ -35,7 +34,7 @@ export const BookCardLarge = ({ book }: { book: Book }) => {
                     <Image
                         src={'/storage/' + book.cover_image}
                         alt={book.title}
-                        className="h-full rounded object-cover"
+                        className="h-full w-16 rounded object-cover"
                         fallbackSrc="https://via.placeholder.com/150?text=Book+Image"
                     />
                 ) : (
