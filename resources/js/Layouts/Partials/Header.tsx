@@ -173,7 +173,7 @@ export default function Header({ user }: { user?: User }) {
                                         {t('About Us')}
                                     </Link>
 
-                                    {user ? (
+                                    {!user?.is_admin ? (
                                         <>
                                             <Link href={route('profile.edit')}>
                                                 {t('Profile')}
@@ -243,21 +243,33 @@ export default function Header({ user }: { user?: User }) {
                                             {t('Profile')}
                                         </Link>
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem asChild>
-                                        <Link href={route('wishlist')}>
-                                            {t('My Wishlist')}
-                                        </Link>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem asChild>
-                                        <Link href={route('reservation.index')}>
-                                            {t('My Reservations')}
-                                        </Link>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem asChild>
-                                        <Link href={route('checkout.index')}>
-                                            {t('My Checkouts')}
-                                        </Link>
-                                    </DropdownMenuItem>
+                                    {!user?.is_admin && (
+                                        <>
+                                            <DropdownMenuItem asChild>
+                                                <Link href={route('wishlist')}>
+                                                    {t('My Wishlist')}
+                                                </Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem asChild>
+                                                <Link
+                                                    href={route(
+                                                        'reservation.index',
+                                                    )}
+                                                >
+                                                    {t('My Reservations')}
+                                                </Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem asChild>
+                                                <Link
+                                                    href={route(
+                                                        'checkout.index',
+                                                    )}
+                                                >
+                                                    {t('My Checkouts')}
+                                                </Link>
+                                            </DropdownMenuItem>
+                                        </>
+                                    )}
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem asChild>
                                         <Link

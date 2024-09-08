@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import React from 'react';
 
@@ -9,6 +10,7 @@ import {
     DialogTitle,
 } from '@/Components/Dialog';
 import { Textarea } from '@/Components/Textarea';
+import { PageProps } from '@/types';
 
 export default function ReviewDialog({
     isOpen,
@@ -24,6 +26,12 @@ export default function ReviewDialog({
     handleReviewSubmit: (e: React.FormEvent) => void;
 }) {
     const { t } = useLaravelReactI18n();
+
+    const {
+        auth: { user },
+    } = usePage<PageProps>().props;
+
+    if (user?.is_admin) return null;
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

@@ -41,17 +41,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
-    Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
-    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+    Route::middleware(['restrict_admin'])->group(function () {
+        Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+        Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
+        Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
-    Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 
-    Route::resource('reservation', ReservationController::class)
-        ->only(['index', 'store', 'destroy']);
+        Route::resource('reservation', ReservationController::class)
+            ->only(['index', 'store', 'destroy']);
 
-    Route::resource('checkout', CheckoutController::class)
-        ->only(['index', 'store', 'destroy']);
+        Route::resource('checkout', CheckoutController::class)
+            ->only(['index', 'store', 'destroy']);
+    });
 });
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

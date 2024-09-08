@@ -38,7 +38,10 @@ export const BookReservationDialog = ({ book }: { book: Book }) => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const { success, error } = usePage<PageProps>().props.flash;
+    const {
+        flash: { success, error },
+        auth: { user },
+    } = usePage<PageProps>().props;
 
     const { toast } = useToast();
 
@@ -87,6 +90,8 @@ export const BookReservationDialog = ({ book }: { book: Book }) => {
             preserveScroll: true,
         });
     };
+
+    if (user?.is_admin) return null;
 
     return (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
