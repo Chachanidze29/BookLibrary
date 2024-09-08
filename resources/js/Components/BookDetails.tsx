@@ -1,10 +1,7 @@
 import { Link, router, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import { BookOpenTextIcon, PencilIcon, TrashIcon } from 'lucide-react';
-import { useState } from 'react';
-import { Fragment } from 'react';
-//@ts-ignore
-import ReactStars from 'react-rating-stars-component';
+import { BookOpenTextIcon, PencilIcon } from 'lucide-react';
+import { Fragment, useState } from 'react';
 
 import { Button } from '@/Components/Button';
 import {
@@ -15,14 +12,9 @@ import {
     CardTitle,
 } from '@/Components/Card';
 import { DataTable } from '@/Components/DataTable';
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from '@/Components/Dialog';
 import Image from '@/Components/Image';
-import { Textarea } from '@/Components/Textarea';
+import ReviewDialog from '@/Components/Review/ReviewDialog';
+import ReviewList from '@/Components/Review/ReviewList';
 import { H4 } from '@/Components/Typography/H4';
 import { WishlistButton } from '@/Components/WishlistButton';
 import { columns } from '@/Pages/Admin/Books/Copies/Partials/columns';
@@ -177,77 +169,20 @@ export default function BookDetails({
                         </p>
                     </div>
                 </div>
-                <ReactStars
-                    count={5}
-                    onChange={(newRating: number) => {
-                        if (!user) {
-                            router.visit(route('login'));
-                            return;
-                        }
-                        setNewRating(newRating);
-                        setIsReviewDialogOpen(true);
-                    }}
-                    value={average_rating}
-                    size={24}
-                    activeColor="#ffd700"
-                    edit={!user_has_review}
+
+                <ReviewList
+                    reviews={reviews}
+                    user={user}
+                    userHasReview={user_has_review}
+                    setNewRating={setNewRating}
+                    setIsReviewDialogOpen={setIsReviewDialogOpen}
+                    averageRating={average_rating}
                 />
 
                 {book.description && (
                     <section>
                         <H4>{t('Description')}</H4>
                         <p>{book.description}</p>
-                    </section>
-                )}
-
-                {reviews?.length > 0 && (
-                    <section>
-                        <H4>{t('Reviews')}</H4>
-                        {reviews.map((review, index) => {
-                            const { rating } = review;
-                            return (
-                                <div key={index} className="mb-4">
-                                    <div className="align-center flex gap-2 ">
-                                        <ReactStars
-                                            count={5}
-                                            value={rating}
-                                            size={20}
-                                            edit={false}
-                                            activeColor="#ffd700"
-                                            key={review.id}
-                                        />
-                                        {user?.is_admin && (
-                                            <Button
-                                                variant="destructive"
-                                                size="icon"
-                                                onClick={() => {
-                                                    router.delete(
-                                                        route(
-                                                            'admin.reviews.destroy',
-                                                            review.id,
-                                                        ),
-                                                        {
-                                                            preserveScroll:
-                                                                true,
-                                                        },
-                                                    );
-                                                }}
-                                            >
-                                                <TrashIcon className="h-4 w-4" />
-                                            </Button>
-                                        )}
-                                    </div>
-                                    <p>{review.review}</p>
-                                    <p className="text-muted-foreground">
-                                        {review.user.first_name}{' '}
-                                        {review.user.last_name} -{' '}
-                                        {new Date(
-                                            review.created_at,
-                                        ).toLocaleDateString()}
-                                    </p>
-                                </div>
-                            );
-                        })}
                     </section>
                 )}
 
@@ -261,27 +196,13 @@ export default function BookDetails({
                     />
                 </section>
 
-                <section className="flex flex-grow flex-col">
-                    <Dialog
-                        open={isReviewDialogOpen}
-                        onOpenChange={setIsReviewDialogOpen}
-                    >
-                        <DialogContent className="sm:max-w-[425px]">
-                            <DialogHeader>
-                                <DialogTitle>{t('Write a review')}</DialogTitle>
-                            </DialogHeader>
-                            <Textarea
-                                value={newReview}
-                                onChange={(e) => setNewReview(e.target.value)}
-                                placeholder={t('Write a review')}
-                                required
-                            />
-                            <Button onClick={handleReviewSubmit}>
-                                {t('Submit')}
-                            </Button>
-                        </DialogContent>
-                    </Dialog>
-                </section>
+                <ReviewDialog
+                    isOpen={isReviewDialogOpen}
+                    setIsOpen={setIsReviewDialogOpen}
+                    newReview={newReview}
+                    setNewReview={setNewReview}
+                    handleReviewSubmit={handleReviewSubmit}
+                />
             </CardContent>
         </Card>
     );

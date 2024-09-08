@@ -1,6 +1,3 @@
-// HeartIcon.js
-import React from 'react';
-
 import { cn } from '@/lib/utils';
 
 const HeartSolidIcon = ({ width = 24, height = 24, color = 'red' }) => (

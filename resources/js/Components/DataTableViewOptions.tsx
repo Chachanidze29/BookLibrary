@@ -7,8 +7,6 @@ import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/Components/DropdownMenu';
 import { capitalize } from '@/lib/utils';
