@@ -36,7 +36,7 @@ RUN npm ci \
     && php artisan storage:link \
     && php artisan cache:clear \
     && php artisan optimize \
-    && php artisan migrate
+    && php artisan migrate --force
 
 EXPOSE 9000
 
