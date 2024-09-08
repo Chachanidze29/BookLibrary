@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('book_copies', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->foreignId('book_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('book_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('branch_id')->constrained()->onUpdate('cascade');
             $table->foreignId('status_id')->constrained('book_copy_statuses')->onUpdate('cascade');
             $table->foreignId('condition_id')->constrained()->onUpdate('cascade');
