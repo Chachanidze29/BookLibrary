@@ -63,6 +63,7 @@
     "An error occurred while deleting the reservation.": "დაჯავშნის წაშლისას შეცდომა მოხდა.",
 
     "Start searching by :column...": "დაიწყე ძებნა ველით :column...",
+    "email": "ელ-ფოსტა",
     "Start searching by name": "მოძებნე სახელით",
     "Start searching by code": "მოძებნე კოდით",
     "Columns": "სვეტები",

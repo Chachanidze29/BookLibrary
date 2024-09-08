@@ -41,7 +41,7 @@ export default function Index({ members }: { members: Member[] }) {
                     <DataTable
                         data={members}
                         columns={columns}
-                        filterBy="personal_number"
+                        filterBy="email"
                     />
                 </CardContent>
             </Card>
