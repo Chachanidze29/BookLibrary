@@ -4,9 +4,7 @@ import { FormEventHandler, useEffect } from 'react';
 
 import { Button } from '@/Components/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/Card';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
+import FormInputText from '@/Components/FormInputs/FormInputText';
 import MainLayout from '@/Layouts/MainLayout';
 import { GoogleIcon } from '@/icons/GoogleIcon';
 
@@ -30,7 +28,6 @@ export default function Register() {
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-
         post(route('register'));
     };
 
@@ -48,130 +45,95 @@ export default function Register() {
                     <CardContent>
                         <form onSubmit={handleSubmit}>
                             <div className="grid items-start gap-4 sm:grid-cols-2">
-                                {/* Registration form fields */}
-                                <div className="grid gap-2">
-                                    <Label htmlFor="first_name">
-                                        {t('First name')}
-                                    </Label>
-                                    <Input
-                                        id="first_name"
-                                        value={data.first_name}
-                                        onChange={(e) =>
-                                            setData(
-                                                'first_name',
-                                                e.target.value,
-                                            )
-                                        }
-                                        autoComplete="first_name"
-                                        autoFocus
-                                    />
-                                    <InputError message={errors.first_name} />
-                                </div>
+                                <FormInputText
+                                    id="first_name"
+                                    type="text"
+                                    label={t('First name')}
+                                    value={data.first_name}
+                                    onChange={(e) =>
+                                        setData('first_name', e.target.value)
+                                    }
+                                    autoComplete="first_name"
+                                    error={errors.first_name}
+                                />
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="last_name">
-                                        {t('Last name')}
-                                    </Label>
-                                    <Input
-                                        id="last_name"
-                                        value={data.last_name}
-                                        onChange={(e) =>
-                                            setData('last_name', e.target.value)
-                                        }
-                                        autoComplete="last_name"
-                                    />
-                                    <InputError message={errors.last_name} />
-                                </div>
+                                <FormInputText
+                                    id="last_name"
+                                    type="text"
+                                    label={t('Last name')}
+                                    value={data.last_name}
+                                    onChange={(e) =>
+                                        setData('last_name', e.target.value)
+                                    }
+                                    autoComplete="last_name"
+                                    error={errors.last_name}
+                                />
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="email">{t('Email')}</Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        value={data.email}
-                                        onChange={(e) =>
-                                            setData('email', e.target.value)
-                                        }
-                                        autoComplete="email"
-                                    />
-                                    <InputError message={errors.email} />
-                                </div>
+                                <FormInputText
+                                    id="email"
+                                    type="email"
+                                    label={t('Email')}
+                                    value={data.email}
+                                    onChange={(e) =>
+                                        setData('email', e.target.value)
+                                    }
+                                    autoComplete="email"
+                                    error={errors.email}
+                                />
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="phone_number">
-                                        {t('Phone number')}
-                                    </Label>
-                                    <Input
-                                        id="phone_number"
-                                        type="tel"
-                                        value={data.phone_number}
-                                        onChange={(e) =>
-                                            setData(
-                                                'phone_number',
-                                                e.target.value,
-                                            )
-                                        }
-                                        autoComplete="tel"
-                                    />
-                                    <InputError message={errors.phone_number} />
-                                </div>
+                                <FormInputText
+                                    id="phone_number"
+                                    type="tel"
+                                    label={t('Phone number')}
+                                    value={data.phone_number}
+                                    onChange={(e) =>
+                                        setData('phone_number', e.target.value)
+                                    }
+                                    autoComplete="tel"
+                                    error={errors.phone_number}
+                                />
 
-                                <div className="grid gap-2 sm:col-span-2">
-                                    <Label htmlFor="personal_number">
-                                        {t('Personal number')}
-                                    </Label>
-                                    <Input
-                                        id="personal_number"
-                                        type="text"
-                                        value={data.personal_number}
-                                        onChange={(e) =>
-                                            setData(
-                                                'personal_number',
-                                                e.target.value,
-                                            )
-                                        }
-                                    />
-                                    <InputError
-                                        message={errors.personal_number}
-                                    />
-                                </div>
+                                <FormInputText
+                                    id="personal_number"
+                                    type="text"
+                                    label={t('Personal number')}
+                                    value={data.personal_number}
+                                    onChange={(e) =>
+                                        setData(
+                                            'personal_number',
+                                            e.target.value,
+                                        )
+                                    }
+                                    error={errors.personal_number}
+                                    className="sm:col-span-2"
+                                />
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="password">
-                                        {t('Password')}
-                                    </Label>
-                                    <Input
-                                        id="password"
-                                        type="password"
-                                        value={data.password}
-                                        onChange={(e) =>
-                                            setData('password', e.target.value)
-                                        }
-                                        autoComplete="new-password"
-                                    />
-                                    <InputError message={errors.password} />
-                                </div>
+                                <FormInputText
+                                    id="password"
+                                    type="password"
+                                    label={t('Password')}
+                                    value={data.password}
+                                    onChange={(e) =>
+                                        setData('password', e.target.value)
+                                    }
+                                    autoComplete="new-password"
+                                    error={errors.password}
+                                />
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="password_confirmation">
-                                        {t('Confirm password')}
-                                    </Label>
-                                    <Input
-                                        id="password_confirmation"
-                                        type="password"
-                                        value={data.password_confirmation}
-                                        onChange={(e) =>
-                                            setData(
-                                                'password_confirmation',
-                                                e.target.value,
-                                            )
-                                        }
-                                        autoComplete="new-password"
-                                    />
-                                    <InputError
-                                        message={errors.password_confirmation}
-                                    />
-                                </div>
+                                <FormInputText
+                                    id="password_confirmation"
+                                    type="password"
+                                    label={t('Confirm password')}
+                                    value={data.password_confirmation}
+                                    onChange={(e) =>
+                                        setData(
+                                            'password_confirmation',
+                                            e.target.value,
+                                        )
+                                    }
+                                    autoComplete="new-password"
+                                    error={errors.password_confirmation}
+                                />
 
                                 <Button
                                     type="submit"

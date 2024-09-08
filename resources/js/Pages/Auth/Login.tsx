@@ -5,9 +5,7 @@ import { FormEventHandler, useEffect } from 'react';
 import { Button } from '@/Components/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/Card';
 import { Checkbox } from '@/Components/Checkbox';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
+import FormInputText from '@/Components/FormInputs/FormInputText';
 import MainLayout from '@/Layouts/MainLayout';
 import { GoogleIcon } from '@/icons/GoogleIcon';
 
@@ -31,7 +29,6 @@ export default function Login({
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-
         post(route('login'));
     };
 
@@ -47,26 +44,20 @@ export default function Login({
                     <CardContent>
                         <form onSubmit={handleSubmit}>
                             <div className="grid gap-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="email">{t('Email')}</Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        value={data.email}
-                                        onChange={(e) =>
-                                            setData('email', e.target.value)
-                                        }
-                                        autoComplete="email"
-                                        autoFocus
-                                    />
-                                    <InputError message={errors.email} />
-                                </div>
+                                <FormInputText
+                                    id="email"
+                                    type="email"
+                                    label={t('Email')}
+                                    value={data.email}
+                                    onChange={(e) =>
+                                        setData('email', e.target.value)
+                                    }
+                                    autoComplete="email"
+                                    error={errors.email}
+                                />
 
                                 <div className="grid gap-2">
                                     <div className="flex items-center">
-                                        <Label htmlFor="password">
-                                            {t('Password')}
-                                        </Label>
                                         {canResetPassword && (
                                             <Link
                                                 href={route('password.request')}
@@ -76,16 +67,17 @@ export default function Login({
                                             </Link>
                                         )}
                                     </div>
-                                    <Input
+                                    <FormInputText
                                         id="password"
                                         type="password"
+                                        label={t('Password')}
                                         value={data.password}
                                         onChange={(e) =>
                                             setData('password', e.target.value)
                                         }
                                         autoComplete="current-password"
+                                        error={errors.password}
                                     />
-                                    <InputError message={errors.password} />
                                 </div>
 
                                 <div className="flex items-center space-x-2">
@@ -114,6 +106,7 @@ export default function Login({
                                 >
                                     {t('Login')}
                                 </Button>
+
                                 <Link
                                     href={route('google.auth')}
                                     className="mt-2 w-full"

@@ -3,20 +3,12 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { FormEventHandler } from 'react';
 
 import { Button } from '@/Components/Button';
-import { DateTimePicker } from '@/Components/DateTimePicker';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
-import { MultiSelect } from '@/Components/MultiSelect';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/Components/Select';
-import { Textarea } from '@/Components/Textarea';
-import { getParsedDate } from '@/lib/utils';
+import { FormInputDateTimePicker } from '@/Components/FormInputs/FormInputDatetimePicker';
+import { FormInputFile } from '@/Components/FormInputs/FormInputFile';
+import { FormInputMultiSelect } from '@/Components/FormInputs/FormInputMultiselect';
+import { FormInputSelect } from '@/Components/FormInputs/FormInputSelect';
+import { FormInputText } from '@/Components/FormInputs/FormInputText';
+import { FormInputTextarea } from '@/Components/FormInputs/FormInputTextarea';
 import { SelectOption } from '@/types';
 import { BookForm, FormType } from '@/types/form';
 
@@ -71,112 +63,79 @@ export function Form({
     return (
         <form onSubmit={handleSubmit} className="flex flex-grow flex-col gap-6">
             <div className="grid items-start gap-4 sm:grid-cols-2">
-                <div className="grid gap-2">
-                    <Label htmlFor="title">{t('Title')}</Label>
-                    <Input
-                        type="text"
-                        value={data.title}
-                        onChange={(e) => setData('title', e.target.value)}
-                        id="title"
-                    />
-                    <InputError message={errors.title} />
-                </div>
+                <FormInputText
+                    id="title"
+                    type="text"
+                    label={t('Title')}
+                    value={data.title}
+                    onChange={(e) => setData('title', e.target.value)}
+                    error={errors.title}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="cover_image">Image</Label>
-                    <Input
-                        type="file"
-                        name="image"
-                        required={type === FormType.Edit ? false : true}
-                        onChange={handleFileChange}
-                    />
-                    <InputError message={errors.cover_image} />
-                </div>
+                <FormInputFile
+                    id="cover_image"
+                    type={type}
+                    label={t('Image')}
+                    onChange={handleFileChange}
+                    error={errors.cover_image}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="isbn">{t('ISBN')}</Label>
-                    <Input
-                        type="text"
-                        value={data.isbn}
-                        onChange={(e) => setData('isbn', e.target.value)}
-                        id="isbn"
-                    />
-                    <InputError message={errors.isbn} />
-                </div>
+                <FormInputText
+                    id="isbn"
+                    type="text"
+                    label={t('ISBN')}
+                    value={data.isbn}
+                    onChange={(e) => setData('isbn', e.target.value)}
+                    error={errors.isbn}
+                />
 
-                <div className="grid gap-2 sm:col-span-2">
-                    <Label htmlFor="description">{t('Description')}</Label>
-                    <Textarea
-                        value={data.description || ''}
-                        onChange={(e) => setData('description', e.target.value)}
-                        id="description"
-                        className="resize-none"
-                    />
-                    <InputError message={errors.description} />
-                </div>
+                <FormInputTextarea
+                    id="description"
+                    label={t('Description')}
+                    value={data.description || ''}
+                    onChange={(e) => setData('description', e.target.value)}
+                    error={errors.description}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="language_id">{t('Language')}</Label>
-                    <Select
-                        value={data.language_id?.toString() || ''}
-                        onValueChange={(value) => {
-                            const language = languages.find(
-                                (language) => language.id === parseInt(value),
-                            );
-                            setData('language_id', language?.id || null);
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder={t('Select a language')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {languages.map((language) => (
-                                <SelectItem
-                                    key={language.id}
-                                    value={language.id.toString()}
-                                >
-                                    {t(language.name)}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <InputError message={errors.language_id} />
-                </div>
+                <FormInputSelect
+                    label={t('Language')}
+                    placeholder={t('Select a language')}
+                    value={data.language_id?.toString() || ''}
+                    options={languages}
+                    onChange={(value) => {
+                        const language = languages.find(
+                            (language) => language.id === parseInt(value),
+                        );
+                        setData('language_id', language?.id || null);
+                    }}
+                    error={errors.language_id}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="publication_date">
-                        {t('Publication date')}
-                    </Label>
-                    <DateTimePicker
-                        label={t('Publication date')}
-                        value={getParsedDate(data.publication_date)}
-                        onChange={(value) =>
-                            setData('publication_date', value?.toString() || '')
-                        }
-                        shouldForceLeadingZeros
-                    />
-                    <InputError message={errors.publication_date} />
-                </div>
+                <FormInputDateTimePicker
+                    id="publication_date"
+                    label={t('Publication date')}
+                    value={data.publication_date}
+                    onChange={(value) => setData('publication_date', value)}
+                    error={errors.publication_date}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="genres">{t('Genres')}</Label>
-                    <MultiSelect
-                        options={genres}
-                        selectedOptions={data.genres}
-                        onValueChange={(options) => setData('genres', options)}
-                    />
-                    <InputError message={errors.genres} />
-                </div>
+                <FormInputMultiSelect
+                    id="genres"
+                    label={t('Genres')}
+                    options={genres}
+                    selectedOptions={data.genres}
+                    onChange={(options) => setData('genres', options)}
+                    error={errors.genres}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="authors">{t('Authors')}</Label>
-                    <MultiSelect
-                        options={authors}
-                        selectedOptions={data.authors}
-                        onValueChange={(options) => setData('authors', options)}
-                    />
-                    <InputError message={errors.authors} />
-                </div>
+                <FormInputMultiSelect
+                    id="authors"
+                    label={t('Authors')}
+                    options={authors}
+                    selectedOptions={data.authors}
+                    onChange={(options) => setData('authors', options)}
+                    error={errors.authors}
+                />
             </div>
 
             <div className="flex flex-grow items-end justify-between">

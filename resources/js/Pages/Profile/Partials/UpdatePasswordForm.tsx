@@ -11,9 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/Components/Card';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
+import FormInputText from '@/Components/FormInputs/FormInputText';
 import { useToast } from '@/Components/useToast';
 
 export default function UpdatePasswordForm() {
@@ -78,50 +76,41 @@ export default function UpdatePasswordForm() {
                 </CardHeader>
 
                 <CardContent className="grid gap-4">
-                    <div className="grid gap-2">
-                        <Label htmlFor="current_password">
-                            {t('Current password')}
-                        </Label>
-                        <Input
-                            ref={currentPasswordInput}
-                            type="password"
-                            value={data.current_password}
-                            onChange={(e) =>
-                                setData('current_password', e.target.value)
-                            }
-                            id="current_password"
-                        />
-                        <InputError message={errors.current_password} />
-                    </div>
+                    <FormInputText
+                        id="current_password"
+                        type="password"
+                        label={t('Current password')}
+                        value={data.current_password}
+                        onChange={(e) =>
+                            setData('current_password', e.target.value)
+                        }
+                        error={errors.current_password}
+                        className="grid gap-2"
+                        ref={currentPasswordInput}
+                    />
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="password">{t('New password')}</Label>
-                        <Input
-                            ref={passwordInput}
-                            type="password"
-                            value={data.password}
-                            onChange={(e) =>
-                                setData('password', e.target.value)
-                            }
-                            id="password"
-                        />
-                        <InputError message={errors.password} />
-                    </div>
+                    <FormInputText
+                        id="password"
+                        type="password"
+                        label={t('New password')}
+                        value={data.password}
+                        onChange={(e) => setData('password', e.target.value)}
+                        error={errors.password}
+                        className="grid gap-2"
+                        ref={passwordInput}
+                    />
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="password_confirmation">
-                            {t('Confirm password')}
-                        </Label>
-                        <Input
-                            type="password"
-                            value={data.password_confirmation}
-                            onChange={(e) =>
-                                setData('password_confirmation', e.target.value)
-                            }
-                            id="password_confirmation"
-                        />
-                        <InputError message={errors.password_confirmation} />
-                    </div>
+                    <FormInputText
+                        id="password_confirmation"
+                        type="password"
+                        label={t('Confirm password')}
+                        value={data.password_confirmation}
+                        onChange={(e) =>
+                            setData('password_confirmation', e.target.value)
+                        }
+                        error={errors.password_confirmation}
+                        className="grid gap-2"
+                    />
                 </CardContent>
 
                 <CardFooter className="border-t px-6 py-4">

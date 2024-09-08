@@ -11,9 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/Components/Card';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
+import { FormInputText } from '@/Components/FormInputs/FormInputText';
 import { useToast } from '@/Components/useToast';
 import { PageProps } from '@/types';
 
@@ -33,11 +31,12 @@ export default function UpdateProfileInformation({
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
+            personal_number: user.personal_number,
+            phone_number: user.phone_number,
         });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-
         patch(route('profile.update'));
     };
 
@@ -62,45 +61,54 @@ export default function UpdateProfileInformation({
                 </CardHeader>
 
                 <CardContent className="grid gap-4">
-                    <div className="grid gap-2">
-                        <Label htmlFor="first_name">{t('First name')}</Label>
-                        <Input
-                            type="text"
-                            value={data.first_name}
-                            onChange={(e) =>
-                                setData('first_name', e.target.value)
-                            }
-                            id="first_name"
-                            autoComplete="first_name"
-                        />
-                        <InputError message={errors.first_name} />
-                    </div>
+                    <FormInputText
+                        id="first_name"
+                        type="text"
+                        label={t('First name')}
+                        value={data.first_name}
+                        onChange={(e) => setData('first_name', e.target.value)}
+                        error={errors.first_name}
+                    />
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="last_name">{t('Last name')}</Label>
-                        <Input
-                            type="text"
-                            value={data.last_name}
-                            onChange={(e) =>
-                                setData('last_name', e.target.value)
-                            }
-                            id="last_name"
-                            autoComplete="last_name"
-                        />
-                        <InputError message={errors.last_name} />
-                    </div>
+                    <FormInputText
+                        id="last_name"
+                        type="text"
+                        label={t('Last name')}
+                        value={data.last_name}
+                        onChange={(e) => setData('last_name', e.target.value)}
+                        error={errors.last_name}
+                    />
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">{t('Email')}</Label>
-                        <Input
-                            type="email"
-                            value={data.email}
-                            onChange={(e) => setData('email', e.target.value)}
-                            id="email"
-                            autoComplete="username"
-                        />
-                        <InputError message={errors.email} />
-                    </div>
+                    <FormInputText
+                        id="email"
+                        type="email"
+                        label={t('Email')}
+                        value={data.email}
+                        onChange={(e) => setData('email', e.target.value)}
+                        error={errors.email}
+                    />
+
+                    <FormInputText
+                        id="personal_number"
+                        type="text"
+                        label={t('Personal number')}
+                        value={data.personal_number}
+                        onChange={(e) =>
+                            setData('personal_number', e.target.value)
+                        }
+                        error={errors.personal_number}
+                    />
+
+                    <FormInputText
+                        id="phone_number"
+                        type="text"
+                        label={t('Phone number')}
+                        value={data.phone_number}
+                        onChange={(e) =>
+                            setData('phone_number', e.target.value)
+                        }
+                        error={errors.phone_number}
+                    />
 
                     {mustVerifyEmail && user.email_verified_at === null && (
                         <div>

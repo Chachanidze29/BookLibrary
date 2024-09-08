@@ -3,9 +3,7 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { FormEventHandler } from 'react';
 
 import { Button } from '@/Components/Button';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
+import FormInputText from '@/Components/FormInputs/FormInputText';
 import { FormType, GenreForm } from '@/types/form';
 
 export function Form({
@@ -56,16 +54,14 @@ export function Form({
     return (
         <form onSubmit={handleSubmit} className="flex flex-grow flex-col gap-6">
             <div className="grid items-start gap-4">
-                <div className="grid gap-2">
-                    <Label htmlFor="name">{t('Name')}</Label>
-                    <Input
-                        type="text"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        id="name"
-                    />
-                    <InputError message={errors.name} />
-                </div>
+                <FormInputText
+                    id="name"
+                    type="text"
+                    label={t('Name')}
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                    error={errors.name}
+                />
             </div>
 
             <div className="flex flex-grow items-end justify-between">

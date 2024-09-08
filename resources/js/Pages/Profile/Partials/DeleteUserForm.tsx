@@ -21,9 +21,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/Components/Card';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
+import FormInputText from '@/Components/FormInputs/FormInputText';
 
 export default function DeleteUserForm() {
     const { t } = useLaravelReactI18n();
@@ -94,20 +92,18 @@ export default function DeleteUserForm() {
                             </AlertDialogHeader>
 
                             <div className="my-6 grid gap-2">
-                                <Label htmlFor="password">
-                                    {t('Password')}
-                                </Label>
-                                <Input
+                                <FormInputText
                                     ref={passwordInput}
+                                    id="password"
                                     type="password"
+                                    label={t('Password')}
                                     value={data.password}
                                     onChange={(e) =>
                                         setData('password', e.target.value)
                                     }
-                                    id="password"
+                                    error={errors.password}
                                     autoFocus
                                 />
-                                <InputError message={errors.password} />
                             </div>
 
                             <AlertDialogFooter>

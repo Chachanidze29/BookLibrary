@@ -1,22 +1,10 @@
 import { useForm } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
-import {
-    ArrowDownToLineIcon,
-    CheckIcon,
-    ChevronsUpDownIcon,
-} from 'lucide-react';
+import { ArrowDownToLineIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '@/Components/Button';
 import { Checkbox } from '@/Components/Checkbox';
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from '@/Components/Command';
 import {
     Dialog,
     DialogContent,
@@ -25,10 +13,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/Components/Dialog';
+import FormInputPopover from '@/Components/FormInputs/FormInputPopover';
 import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/Components/Popover';
-import { cn } from '@/lib/utils';
+import InputLabel from '@/Components/InputLabel';
 import { ReturnData } from '@/types';
 
 export default function Return({
@@ -62,9 +49,9 @@ export default function Return({
     };
 
     const renderMember = (id: number) => {
-        const member = members.filter((member) => member.id === id)[0];
+        const member = members.find((member) => member.id === id);
 
-        return (
+        return member ? (
             <div className="flex flex-col items-start gap-1">
                 <p>
                     {member.first_name} {member.last_name}
@@ -73,34 +60,11 @@ export default function Return({
                     {member.personal_number}
                 </p>
             </div>
-        );
+        ) : null;
     };
 
-    const renderMemberOptions = () => {
-        return members.map((member) => (
-            <CommandItem
-                key={member.id}
-                value={member.first_name}
-                onSelect={(currentValue) => {
-                    const memberId = members.filter(
-                        (member) => member.first_name === currentValue,
-                    )[0].id;
-                    reset();
-                    setData((data) => ({ ...data, member_id: memberId }));
-                    setMemberPopoverOpen(false);
-                }}
-            >
-                <CheckIcon
-                    className={cn(
-                        'mr-2 h-4 w-4',
-                        data.member_id === member.id
-                            ? 'opacity-100'
-                            : 'opacity-0',
-                    )}
-                />
-                {renderMember(member.id)}
-            </CommandItem>
-        ));
+    const getCheckout = (id: number) => {
+        return data.checkouts.find((checkout) => checkout.id === id);
     };
 
     const renderCheckouts = () => {
@@ -144,7 +108,6 @@ export default function Return({
                                     }
                                     id={`checkout-${id}`}
                                 />
-
                                 <label
                                     htmlFor={`checkout-${id}`}
                                     className="flex cursor-pointer flex-col gap-1"
@@ -170,7 +133,8 @@ export default function Return({
                                             <div className="flex items-center gap-2">
                                                 <Checkbox
                                                     checked={
-                                                        getCheckout(id).lost
+                                                        getCheckout(id)?.lost ||
+                                                        false
                                                     }
                                                     onCheckedChange={(
                                                         checked,
@@ -190,16 +154,18 @@ export default function Return({
                                                     }
                                                     id={`lost-${id}`}
                                                 />
-                                                <label htmlFor={`lost-${id}`}>
+                                                <InputLabel
+                                                    htmlFor={`lost-${id}`}
+                                                >
                                                     {t('Lost')}
-                                                </label>
+                                                </InputLabel>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <Checkbox
                                                     checked={
-                                                        getCheckout(id).damaged
+                                                        getCheckout(id)
+                                                            ?.damaged || false
                                                     }
-                                                    id={`damaged-${id}`}
                                                     onCheckedChange={(
                                                         checked,
                                                     ) =>
@@ -217,6 +183,7 @@ export default function Return({
                                                             },
                                                         ])
                                                     }
+                                                    id={`damaged-${id}`}
                                                 />
                                                 <label
                                                     htmlFor={`damaged-${id}`}
@@ -232,10 +199,6 @@ export default function Return({
                     })}
             </div>
         );
-    };
-
-    const getCheckout = (id: number) => {
-        return data.checkouts.filter((checkout) => checkout.id === id)[0];
     };
 
     return (
@@ -256,52 +219,33 @@ export default function Return({
 
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col space-y-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="member">{t('Member')}</Label>
+                        <FormInputPopover
+                            isOpen={memberPopoverOpen}
+                            setIsOpen={setMemberPopoverOpen}
+                            inputValue={memberInputValue}
+                            setInputValue={setMemberInputValue}
+                            options={members}
+                            selectedOption={members.find(
+                                (member) => member.id === data.member_id,
+                            )}
+                            onSelect={(member) => {
+                                reset();
+                                setData((data) => ({
+                                    ...data,
+                                    member_id: member.id,
+                                }));
+                            }}
+                            renderOption={(member) => (
+                                <div>
+                                    {member.first_name} {member.last_name}
+                                </div>
+                            )}
+                            emptyMessage={t('No results')}
+                            placeholder={t('Select a member')}
+                            label={t('Member')}
+                        />
 
-                            <Popover
-                                modal={true}
-                                open={memberPopoverOpen}
-                                onOpenChange={setMemberPopoverOpen}
-                            >
-                                <PopoverTrigger asChild>
-                                    <Button
-                                        variant="outline"
-                                        role="combobox"
-                                        aria-expanded={memberPopoverOpen}
-                                        className="h-auto justify-between"
-                                    >
-                                        {data.member_id
-                                            ? renderMember(data.member_id)
-                                            : t('Select a member')}
-                                        <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="p-0">
-                                    <Command>
-                                        <CommandInput
-                                            value={memberInputValue}
-                                            onValueChange={setMemberInputValue}
-                                            placeholder={t(
-                                                'Start searching...',
-                                            )}
-                                        />
-                                        <CommandList>
-                                            <CommandEmpty>
-                                                {t('No results')}
-                                            </CommandEmpty>
-                                            <CommandGroup>
-                                                <CommandList>
-                                                    {renderMemberOptions()}
-                                                </CommandList>
-                                            </CommandGroup>
-                                        </CommandList>
-                                    </Command>
-                                </PopoverContent>
-                            </Popover>
-
-                            <InputError message={errors.member_id} />
-                        </div>
+                        <InputError message={errors.member_id} />
 
                         {!!data.member_id && renderCheckouts()}
 

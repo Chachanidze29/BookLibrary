@@ -3,9 +3,7 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { FormEventHandler } from 'react';
 
 import { Button } from '@/Components/Button';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
+import FormInputText from '@/Components/FormInputs/FormInputText';
 import { FormType, MemberForm } from '@/types/form';
 
 export function Form({
@@ -44,66 +42,50 @@ export function Form({
     return (
         <form onSubmit={handleSubmit} className="flex flex-grow flex-col gap-6">
             <div className="grid items-start gap-4 sm:grid-cols-2">
-                <div className="grid gap-2">
-                    <Label htmlFor="first_name">{t('First name')}</Label>
-                    <Input
-                        type="text"
-                        value={data.first_name}
-                        onChange={(e) => setData('first_name', e.target.value)}
-                        id="first_name"
-                    />
-                    <InputError message={errors.first_name} />
-                </div>
+                <FormInputText
+                    id="first_name"
+                    type="text"
+                    label={t('First name')}
+                    value={data.first_name}
+                    onChange={(e) => setData('first_name', e.target.value)}
+                    error={errors.first_name}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="last_name">{t('Last name')}</Label>
-                    <Input
-                        type="text"
-                        value={data.last_name}
-                        onChange={(e) => setData('last_name', e.target.value)}
-                        id="last_name"
-                    />
-                    <InputError message={errors.last_name} />
-                </div>
+                <FormInputText
+                    id="last_name"
+                    type="text"
+                    label={t('Last name')}
+                    value={data.last_name}
+                    onChange={(e) => setData('last_name', e.target.value)}
+                    error={errors.last_name}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="email">{t('Email')}</Label>
-                    <Input
-                        type="email"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        id="email"
-                    />
-                    <InputError message={errors.email} />
-                </div>
+                <FormInputText
+                    id="email"
+                    type="email"
+                    label={t('Email')}
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    error={errors.email}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="phone_number">{t('Phone number')}</Label>
-                    <Input
-                        type="tel"
-                        value={data.phone_number}
-                        onChange={(e) =>
-                            setData('phone_number', e.target.value)
-                        }
-                        id="phone_number"
-                    />
-                    <InputError message={errors.phone_number} />
-                </div>
+                <FormInputText
+                    id="phone_number"
+                    type="tel"
+                    label={t('Phone number')}
+                    value={data.phone_number}
+                    onChange={(e) => setData('phone_number', e.target.value)}
+                    error={errors.phone_number}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="personal_number">
-                        {t('Personal number')}
-                    </Label>
-                    <Input
-                        type="text"
-                        value={data.personal_number}
-                        onChange={(e) =>
-                            setData('personal_number', e.target.value)
-                        }
-                        id="personal_number"
-                    />
-                    <InputError message={errors.personal_number} />
-                </div>
+                <FormInputText
+                    id="personal_number"
+                    type="text"
+                    label={t('Personal number')}
+                    value={data.personal_number}
+                    onChange={(e) => setData('personal_number', e.target.value)}
+                    error={errors.personal_number}
+                />
             </div>
 
             <div className="flex flex-grow items-end justify-between">

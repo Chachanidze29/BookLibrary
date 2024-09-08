@@ -10,10 +10,8 @@ import {
     CardHeader,
     CardTitle,
 } from '@/Components/Card';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
-import { Textarea } from '@/Components/Textarea';
+import FormInputNumber from '@/Components/FormInputs/FormInputNumber';
+import FormInputTextarea from '@/Components/FormInputs/FormInputTextarea';
 import ConfigurationLayout from '@/Layouts/ConfigurationLayout';
 
 type Configurations = {
@@ -60,89 +58,61 @@ export default function Index({
                     </CardHeader>
 
                     <CardContent className="grid gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="about">{t('About us')}</Label>
-                            <Textarea
-                                value={data.about || ''}
-                                onChange={(e) =>
-                                    setData('about', e.target.value)
-                                }
-                                id="about"
-                            />
-                            <InputError message={errors.about} />
-                        </div>
+                        <FormInputTextarea
+                            id="about"
+                            label={t('About us')}
+                            value={data.about || ''}
+                            onChange={(e) => setData('about', e.target.value)}
+                            error={errors.about}
+                        />
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="days_to_return">
-                                {t('Days to Return')}
-                            </Label>
-                            <Input
-                                type="number"
-                                value={data.days_to_return}
-                                onChange={(e) =>
-                                    setData(
-                                        'days_to_return',
-                                        parseInt(e.target.value) || 1,
-                                    )
-                                }
-                                id="days_to_return"
-                                min="1"
-                            />
-                            <span className="text-xs text-muted-foreground">
-                                {t(
-                                    'The number of days a member has to return a book.',
-                                )}
-                            </span>
-                            <InputError message={errors.days_to_return} />
-                        </div>
+                        <FormInputNumber
+                            id="days_to_return"
+                            label={t('Days to Return')}
+                            value={data.days_to_return}
+                            onChange={(e) =>
+                                setData(
+                                    'days_to_return',
+                                    parseInt(e.target.value) || 1,
+                                )
+                            }
+                            error={errors.days_to_return}
+                            description={t(
+                                'The number of days a member has to return a book.',
+                            )}
+                        />
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="max_lent_books">
-                                {t('Max Lent Books')}
-                            </Label>
-                            <Input
-                                type="number"
-                                value={data.max_lent_books}
-                                onChange={(e) =>
-                                    setData(
-                                        'max_lent_books',
-                                        parseInt(e.target.value) || 1,
-                                    )
-                                }
-                                id="max_lent_books"
-                                min="1"
-                            />
-                            <span className="text-xs text-muted-foreground">
-                                {t(
-                                    'The maximum number of books a member can borrow at the same time.',
-                                )}
-                            </span>
-                            <InputError message={errors.max_lent_books} />
-                        </div>
+                        <FormInputNumber
+                            id="max_lent_books"
+                            label={t('Max Lent Books')}
+                            value={data.max_lent_books}
+                            onChange={(e) =>
+                                setData(
+                                    'max_lent_books',
+                                    parseInt(e.target.value) || 1,
+                                )
+                            }
+                            error={errors.max_lent_books}
+                            description={t(
+                                'The maximum number of books a member can borrow at the same time.',
+                            )}
+                        />
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="max_reservation_days">
-                                {t('Max Reservation Days')}
-                            </Label>
-                            <Input
-                                type="number"
-                                value={data.max_reservation_days}
-                                onChange={(e) =>
-                                    setData(
-                                        'max_reservation_days',
-                                        parseInt(e.target.value) || 1,
-                                    )
-                                }
-                                id="max_reservation_days"
-                                min="1"
-                            />
-                            <span className="text-xs text-muted-foreground">
-                                {t(
-                                    'The number of days to borrow a reserved book.',
-                                )}
-                            </span>
-                            <InputError message={errors.max_reservation_days} />
-                        </div>
+                        <FormInputNumber
+                            id="max_reservation_days"
+                            label={t('Max Reservation Days')}
+                            value={data.max_reservation_days}
+                            onChange={(e) =>
+                                setData(
+                                    'max_reservation_days',
+                                    parseInt(e.target.value) || 1,
+                                )
+                            }
+                            error={errors.max_reservation_days}
+                            description={t(
+                                'The number of days to borrow a reserved book.',
+                            )}
+                        />
                     </CardContent>
 
                     <CardFooter className="border-t px-6 py-4">

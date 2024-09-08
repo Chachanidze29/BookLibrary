@@ -16,6 +16,8 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'personal_number' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:users,email,' . $this->user()->id,
         ];
     }

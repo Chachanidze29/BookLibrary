@@ -3,10 +3,9 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { FormEventHandler } from 'react';
 
 import { Button } from '@/Components/Button';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
-import { Textarea } from '@/Components/Textarea';
+import { FormInputFile } from '@/Components/FormInputs/FormInputFile';
+import { FormInputText } from '@/Components/FormInputs/FormInputText';
+import { FormInputTextarea } from '@/Components/FormInputs/FormInputTextarea';
 import { AuthorForm, FormType } from '@/types/form';
 
 export function Form({
@@ -66,38 +65,30 @@ export function Form({
     return (
         <form onSubmit={handleSubmit} className="flex flex-grow flex-col gap-6">
             <div className="grid items-start gap-4">
-                <div className="grid gap-2">
-                    <Label htmlFor="name">{t('Name')}</Label>
-                    <Input
-                        type="text"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        id="name"
-                    />
-                    <InputError message={errors.name} />
-                </div>
+                <FormInputText
+                    id="name"
+                    type="text"
+                    label={t('Name')}
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                    error={errors.name}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="cover_image">Image</Label>
-                    <Input
-                        type="file"
-                        name="image"
-                        required={type === FormType.Edit ? false : true}
-                        onChange={handleFileChange}
-                    />
-                    <InputError message={errors.cover_image} />
-                </div>
+                <FormInputFile
+                    id="cover_image"
+                    type={type}
+                    label={t('Image')}
+                    onChange={handleFileChange}
+                    error={errors.cover_image}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="bio">{t('Bio')}</Label>
-                    <Textarea
-                        value={data.bio || ''}
-                        onChange={(e) => setData('bio', e.target.value)}
-                        id="bio"
-                        className="resize-none"
-                    />
-                    <InputError message={errors.bio} />
-                </div>
+                <FormInputTextarea
+                    id="bio"
+                    label={t('Bio')}
+                    value={data.bio || ''}
+                    onChange={(e) => setData('bio', e.target.value)}
+                    error={errors.bio}
+                />
             </div>
 
             <div className="flex flex-grow items-end justify-between">

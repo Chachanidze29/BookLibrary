@@ -4,16 +4,8 @@ import { PlusCircleIcon, TrashIcon } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import { Button } from '@/Components/Button';
-import { Input } from '@/Components/Input';
-import { InputError } from '@/Components/InputError';
-import { Label } from '@/Components/Label';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/Components/Select';
+import FormInputSelect from '@/Components/FormInputs/FormInputSelect';
+import { FormInputText } from '@/Components/FormInputs/FormInputText';
 import { H4 } from '@/Components/Typography/H4';
 import { SelectOption } from '@/types';
 import { BookCopyForm, FormType } from '@/types/form';
@@ -72,102 +64,56 @@ export function Form({
 
         return (
             <div className="grid items-start gap-4 sm:grid-cols-2">
-                <div className="grid gap-2">
-                    <Label htmlFor="code">{t('Code')}</Label>
-                    <Input
-                        type="text"
-                        value={data.code}
-                        onChange={(e) => setData('code', e.target.value)}
-                        id="code"
-                    />
-                    <InputError message={errors.code} />
-                </div>
+                <FormInputText
+                    id="code"
+                    type="text"
+                    label={t('Code')}
+                    value={data.code}
+                    onChange={(e) => setData('code', e.target.value)}
+                    error={errors.code}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="branch_id">{t('Branch')}</Label>
-                    <Select
-                        value={data.branch_id?.toString() || ''}
-                        onValueChange={(value) => {
-                            const branch = branches.find(
-                                (branch) => branch.id === parseInt(value),
-                            );
-                            setData('branch_id', branch?.id || null);
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder={t('Select a branch')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {branches.map((branch) => (
-                                <SelectItem
-                                    key={branch.id}
-                                    value={branch.id.toString()}
-                                >
-                                    {branch.name}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <InputError message={errors.branch_id} />
-                </div>
+                <FormInputSelect
+                    label={t('Branch')}
+                    placeholder={t('Select a branch')}
+                    value={data.branch_id?.toString() || ''}
+                    options={branches}
+                    onChange={(value) => {
+                        const branch = branches.find(
+                            (branch) => branch.id === parseInt(value),
+                        );
+                        setData('branch_id', branch?.id || null);
+                    }}
+                    error={errors.branch_id}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="status_id">{t('Status')}</Label>
-                    <Select
-                        value={data.status_id?.toString() || ''}
-                        onValueChange={(value) => {
-                            const status = statuses.find(
-                                (status) => status.id === parseInt(value),
-                            );
-                            setData('status_id', status?.id || null);
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder={t('Select a status')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {statuses.map((status) => (
-                                <SelectItem
-                                    key={status.id}
-                                    value={status.id.toString()}
-                                >
-                                    {t(status.name)}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <InputError message={errors.status_id} />
-                </div>
+                <FormInputSelect
+                    label={t('Status')}
+                    placeholder={t('Select a status')}
+                    value={data.status_id?.toString() || ''}
+                    options={statuses}
+                    onChange={(value) => {
+                        const status = statuses.find(
+                            (status) => status.id === parseInt(value),
+                        );
+                        setData('status_id', status?.id || null);
+                    }}
+                    error={errors.status_id}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="condition_id">{t('Condition')}</Label>
-                    <Select
-                        value={data.condition_id?.toString() || ''}
-                        onValueChange={(value) => {
-                            const condition = conditions.find(
-                                (condition) => condition.id === parseInt(value),
-                            );
-                            setData('condition_id', condition?.id || null);
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue
-                                placeholder={t('Select a condition')}
-                            />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {conditions.map((condition) => (
-                                <SelectItem
-                                    key={condition.id}
-                                    value={condition.id.toString()}
-                                >
-                                    {t(condition.name)}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <InputError message={errors.condition_id} />
-                </div>
+                <FormInputSelect
+                    label={t('Condition')}
+                    placeholder={t('Select a condition')}
+                    value={data.condition_id?.toString() || ''}
+                    options={conditions}
+                    onChange={(value) => {
+                        const condition = conditions.find(
+                            (condition) => condition.id === parseInt(value),
+                        );
+                        setData('condition_id', condition?.id || null);
+                    }}
+                    error={errors.condition_id}
+                />
             </div>
         );
     };
@@ -218,130 +164,70 @@ export function Form({
                     )}
                 </H4>
 
-                <div className="grid gap-2">
-                    <Label htmlFor="code">{t('Code')}</Label>
-                    <Input
-                        type="text"
-                        value={bookCopy.code}
-                        onChange={(e) =>
-                            handleValueChange(index, 'code', e.target.value)
-                        }
-                        id="code"
-                    />
-                    <InputError
-                        message={errors[`copies.${index}.code` as ErrorKey]}
-                    />
-                </div>
+                <FormInputText
+                    id={`code-${index}`}
+                    type="text"
+                    label={t('Code')}
+                    value={bookCopy.code}
+                    onChange={(e) =>
+                        handleValueChange(index, 'code', e.target.value)
+                    }
+                    error={errors[`copies.${index}.code` as ErrorKey]}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="branch_id">{t('Branch')}</Label>
-                    <Select
-                        value={bookCopy.branch_id?.toString() || ''}
-                        onValueChange={(value) => {
-                            const branch = branches.find(
-                                (branch) => branch.id === parseInt(value),
-                            );
-                            handleValueChange(
-                                index,
-                                'branch_id',
-                                branch?.id || null,
-                            );
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder={t('Select a branch')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {branches.map((branch) => (
-                                <SelectItem
-                                    key={branch.id}
-                                    value={branch.id.toString()}
-                                >
-                                    {branch.name}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <InputError
-                        message={
-                            errors[`copies.${index}.branch_id` as ErrorKey]
-                        }
-                    />
-                </div>
+                <FormInputSelect
+                    label={t('Branch')}
+                    placeholder={t('Select a branch')}
+                    value={bookCopy.branch_id?.toString() || ''}
+                    options={branches}
+                    onChange={(value) => {
+                        const branch = branches.find(
+                            (branch) => branch.id === parseInt(value),
+                        );
+                        handleValueChange(
+                            index,
+                            'branch_id',
+                            branch?.id || null,
+                        );
+                    }}
+                    error={errors[`copies.${index}.branch_id` as ErrorKey]}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="status_id">{t('Status')}</Label>
-                    <Select
-                        value={bookCopy.status_id?.toString() || ''}
-                        onValueChange={(value) => {
-                            const status = statuses.find(
-                                (status) => status.id === parseInt(value),
-                            );
-                            handleValueChange(
-                                index,
-                                'status_id',
-                                status?.id || null,
-                            );
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder={t('Select a status')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {statuses.map((status) => (
-                                <SelectItem
-                                    key={status.id}
-                                    value={status.id.toString()}
-                                >
-                                    {status.name}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <InputError
-                        message={
-                            errors[`copies.${index}.status_id` as ErrorKey]
-                        }
-                    />
-                </div>
+                <FormInputSelect
+                    label={t('Status')}
+                    placeholder={t('Select a status')}
+                    value={bookCopy.status_id?.toString() || ''}
+                    options={statuses}
+                    onChange={(value) => {
+                        const status = statuses.find(
+                            (status) => status.id === parseInt(value),
+                        );
+                        handleValueChange(
+                            index,
+                            'status_id',
+                            status?.id || null,
+                        );
+                    }}
+                    error={errors[`copies.${index}.status_id` as ErrorKey]}
+                />
 
-                <div className="grid gap-2">
-                    <Label htmlFor="condition_id">{t('Condition')}</Label>
-                    <Select
-                        value={bookCopy.condition_id?.toString() || ''}
-                        onValueChange={(value) => {
-                            const condition = conditions.find(
-                                (condition) => condition.id === parseInt(value),
-                            );
-                            handleValueChange(
-                                index,
-                                'condition_id',
-                                condition?.id || null,
-                            );
-                        }}
-                    >
-                        <SelectTrigger>
-                            <SelectValue
-                                placeholder={t('Select a condition')}
-                            />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {conditions.map((condition) => (
-                                <SelectItem
-                                    key={condition.id}
-                                    value={condition.id.toString()}
-                                >
-                                    {condition.name}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <InputError
-                        message={
-                            errors[`copies.${index}.condition_id` as ErrorKey]
-                        }
-                    />
-                </div>
+                <FormInputSelect
+                    label={t('Condition')}
+                    placeholder={t('Select a condition')}
+                    value={bookCopy.condition_id?.toString() || ''}
+                    options={conditions}
+                    onChange={(value) => {
+                        const condition = conditions.find(
+                            (condition) => condition.id === parseInt(value),
+                        );
+                        handleValueChange(
+                            index,
+                            'condition_id',
+                            condition?.id || null,
+                        );
+                    }}
+                    error={errors[`copies.${index}.condition_id` as ErrorKey]}
+                />
             </div>
         ));
     };

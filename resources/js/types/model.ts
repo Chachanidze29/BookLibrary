@@ -5,6 +5,8 @@ export type User = {
     email: string;
     email_verified_at: string;
     is_admin: boolean;
+    phone_number: string;
+    personal_number: string;
 };
 
 export type Member = {
@@ -42,6 +44,7 @@ export type BookCopy = {
     status_id: number;
     condition: { id: number; name: string };
     condition_id: number;
+    book: Book;
 };
 
 export type Author = {
