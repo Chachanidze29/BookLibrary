@@ -36,8 +36,7 @@ RUN npm ci \
     && php artisan storage:link \
     && php artisan cache:clear \
     && php artisan optimize \
-    # TODO needs to be changed to only migrate
-    && php artisan migrate:fresh --seed --force
+    && php artisan migrate
 
 EXPOSE 9000
 
