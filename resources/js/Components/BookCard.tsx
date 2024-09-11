@@ -46,8 +46,10 @@ export function BookCard({ book }: { book: Book }) {
                 </CardContent>
             </Link>
 
-            <CardFooter className="absolute bottom-4 left-0 right-0 flex justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <BookReservationDialog book={book} />
+            <CardFooter className="flex justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="absolute bottom-2 left-0 right-0 flex items-center justify-center ">
+                    <BookReservationDialog book={book} />
+                </div>
             </CardFooter>
         </Card>
     );
