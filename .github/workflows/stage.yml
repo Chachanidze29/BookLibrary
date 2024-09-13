@@ -42,8 +42,9 @@ jobs:
           docker-compose -f docker-compose.prod.yml up --build -d
           EOF
 
-      - name: Build Frontend Assets
+      - name: Build Frontend Assets And Migrations
         run: |
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
           docker exec -w /var/www/html library-app npm run build
+          docker exec -w /var/www/html library-app php artisan migrate --force
           EOF
