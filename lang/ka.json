@@ -362,5 +362,10 @@
     ":count Search Results": ":count შედეგი",
     "Published in :date": "გამოქვეყნდა :date",
 
-    "Select book copies": "აირჩიე წიგნის ასლები"
+    "Select book copies": "აირჩიე წიგნის ასლები",
+    "Confirm": "დადასტურება",
+
+    "Email Password Reset Link": "გაგზავნა",
+    "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "დაგავიწყდა პაროლი? ჩაწერე შენი ემაილი და ჩვენ გამოგიზავნით პაროლის შეცვლის ბმულს",
+    "Reset Password": "პაროლის შეცვლა"
 }

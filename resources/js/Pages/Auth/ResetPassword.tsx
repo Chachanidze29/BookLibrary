@@ -1,9 +1,10 @@
 import { Head, useForm } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { FormEventHandler, useEffect } from 'react';
 
 import FormInputText from '@/Components/FormInputs/FormInputText';
 import PrimaryButton from '@/Components/PrimaryButton';
-import GuestLayout from '@/Layouts/GuestLayout';
+import MainLayout from '@/Layouts/MainLayout';
 
 export default function ResetPassword({
     token,
@@ -12,6 +13,8 @@ export default function ResetPassword({
     token: string;
     email: string;
 }) {
+    const { t } = useLaravelReactI18n();
+
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,
@@ -31,7 +34,7 @@ export default function ResetPassword({
     };
 
     return (
-        <GuestLayout>
+        <MainLayout>
             <Head title="Reset Password" />
 
             <form onSubmit={submit}>
@@ -73,10 +76,10 @@ export default function ResetPassword({
 
                 <div className="mt-4 flex items-center justify-end">
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
+                        {t('Reset Password')}
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </MainLayout>
     );
 }

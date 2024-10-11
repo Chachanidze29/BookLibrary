@@ -1,11 +1,14 @@
 import { Head, useForm } from '@inertiajs/react';
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { FormEventHandler, useEffect } from 'react';
 
 import FormInputText from '@/Components/FormInputs/FormInputText';
 import PrimaryButton from '@/Components/PrimaryButton';
-import GuestLayout from '@/Layouts/GuestLayout';
+import MainLayout from '@/Layouts/MainLayout';
 
 export default function ConfirmPassword() {
+    const { t } = useLaravelReactI18n();
+
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
     });
@@ -22,12 +25,13 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <GuestLayout>
+        <MainLayout>
             <Head title="Confirm Password" />
 
             <div className="mb-4 text-sm text-gray-600">
-                This is a secure area of the application. Please confirm your
-                password before continuing.
+                {t(
+                    'This is a secure area of the application. Please confirm your password before continuing.',
+                )}
             </div>
 
             <form onSubmit={submit}>
@@ -44,10 +48,10 @@ export default function ConfirmPassword() {
 
                 <div className="mt-4 flex items-center justify-end">
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Confirm
+                        {t('Confirm')}
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </MainLayout>
     );
 }
