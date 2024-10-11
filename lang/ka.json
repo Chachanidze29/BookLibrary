@@ -360,5 +360,7 @@
     "Conditions": "მდგომარეობები",
 
     ":count Search Results": ":count შედეგი",
-    "Published in :date": "გამოქვეყნდა :date"
+    "Published in :date": "გამოქვეყნდა :date",
+
+    "Select book copies": "აირჩიე წიგნის ასლები"
 }

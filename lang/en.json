@@ -358,5 +358,7 @@
     "Conditions": "Conditions",
 
     ":count Search Results": ":count Search Results",
-    "Published in :date": "Published in :date"
+    "Published in :date": "Published in :date",
+
+    "Select book copies": "Select book copies"
 }

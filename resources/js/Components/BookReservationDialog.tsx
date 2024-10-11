@@ -108,7 +108,9 @@ export const BookReservationDialog = ({ book }: { book: Book }) => {
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col space-y-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="books">{t('Books')}</Label>
+                            <Label htmlFor="book_copies">
+                                {t('Book Copies')}
+                            </Label>
                             <Popover
                                 modal={true}
                                 open={bookCopiesPopoverOpen}
@@ -123,7 +125,7 @@ export const BookReservationDialog = ({ book }: { book: Book }) => {
                                     >
                                         {data.book_copy
                                             ? `${data.book_copy.code} - ${data.book_copy.branch.name}`
-                                            : t('Select books')}
+                                            : t('Select book copies')}
                                         <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                     </Button>
                                 </PopoverTrigger>

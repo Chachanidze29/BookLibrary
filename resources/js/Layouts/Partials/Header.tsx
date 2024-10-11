@@ -51,7 +51,7 @@ export default function Header({ user }: { user?: User }) {
     }
 
     return (
-        <header className="border-b">
+        <header className="sticky top-0 z-50 border-b bg-white">
             <div className="container flex h-16 items-center justify-between">
                 <div className="flex gap-6">
                     <div className="flex items-center">
