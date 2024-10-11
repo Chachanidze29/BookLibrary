@@ -2,7 +2,6 @@ import { Link } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
 
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Avatar, AvatarFallback } from '@/Components/Avatar';
 import { Button } from '@/Components/Button';
 import {
@@ -54,12 +53,6 @@ export default function Header({ user }: { user?: User }) {
         <header className="sticky top-0 z-50 border-b bg-white">
             <div className="container flex h-16 items-center justify-between">
                 <div className="flex gap-6">
-                    <div className="flex items-center">
-                        <Link href="/">
-                            <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                        </Link>
-                    </div>
-
                     <NavigationMenu className="hidden md:flex">
                         <NavigationMenuList>
                             <NavigationMenuItem>
