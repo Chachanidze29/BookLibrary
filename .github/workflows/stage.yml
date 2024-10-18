@@ -59,12 +59,5 @@ jobs:
           docker-compose down
           docker load -i library-image.tar
           docker ps -aq | xargs -r docker rm -f
-          docker-compose -f docker-compose.yml up -d --no-build
-          EOF
-
-      - name: Post-deploy
-        run: |
-          ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
-          docker exec -w /var/www/html library-app npm run build
-          docker exec -w /var/www/html library-app php artisan migrate --force
+          docker-compose -f docker-compose.yml up -d
           EOF
