@@ -24,9 +24,6 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::get('/test', function () {
-    return 'Hello World';
-})->name('test');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
