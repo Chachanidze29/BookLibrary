@@ -55,12 +55,10 @@ jobs:
           cd /home/laravel/book-library
           docker system prune -f
           docker volume prune -f
-          git reset --hard
-          git clean -fd
-          git pull origin main
           docker-compose down
           docker load -i library-image.tar
-          docker-compose -f docker-compose.prod.yml up -d --no-build
+          docker ps -aq | xargs -r docker rm -f
+          docker-compose -f docker-compose.yml up -d --no-build
           EOF
 
       - name: Post-deploy
