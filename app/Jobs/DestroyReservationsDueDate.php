@@ -28,6 +28,6 @@ class DestroyReservationsDueDate implements ShouldQueue
     {
         $today = now()->toDateString();
 
-        Reservation::where('due_date', $today)->destroy();
+        Reservation::where('due_date', '<', $today)->delete();
     }
 }

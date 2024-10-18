@@ -60,7 +60,7 @@ jobs:
           git pull origin main
           docker-compose down
           docker load -i library-image.tar
-          docker-compose up -d --no-build
+          docker-compose -f docker-compose.prod.yml up -d --no-build
           EOF
 
       - name: Post-deploy
@@ -68,5 +68,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
           docker exec -w /var/www/html library-app npm run build
           docker exec -w /var/www/html library-app php artisan migrate --force
-          docker exec -w /var/www/html library-app php artisan queue:work
           EOF

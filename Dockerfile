@@ -18,6 +18,7 @@ RUN apk add --no-cache \
     libpng-dev \
     icu-dev \
     bash \
+    supervisor \
     nodejs \
     npm \
     && docker-php-ext-configure gd --with-jpeg \
@@ -27,7 +28,6 @@ RUN apk add --no-cache \
 COPY . /var/www/html
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 RUN composer install --optimize-autoloader --no-dev
 
 RUN npm ci \
@@ -37,6 +37,8 @@ RUN npm ci \
     && php artisan cache:clear \
     && php artisan optimize
 
+COPY ./supervisord.conf /etc/supervisord.conf
+
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
