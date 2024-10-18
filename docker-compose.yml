@@ -23,7 +23,6 @@ services:
             - sail
         depends_on:
             - mysql
-            - adminer
             - mailpit
     mysql:
         image: 'mysql/mysql-server:8.0'
@@ -49,12 +48,6 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
-    adminer:
-        image: 'adminer:latest'
-        ports:
-            - '${FORWARD_DB_ADMINER_PORT:-8080}:8080'
-        networks:
-            - sail
     mailpit:
         image: 'axllent/mailpit:latest'
         ports:
