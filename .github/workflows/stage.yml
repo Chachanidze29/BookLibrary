@@ -52,6 +52,7 @@ jobs:
       - name: Deploy to Droplet
         run: |
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
+          set -x
           cd /home/laravel/book-library
           docker system prune -f
           docker volume prune -f
