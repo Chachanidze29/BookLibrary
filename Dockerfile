@@ -35,8 +35,7 @@ RUN npm ci \
     && rm -rf public/storage \
     && php artisan storage:link \
     && php artisan cache:clear \
-    && php artisan optimize \
-    && php artisan queue:work \
+    && php artisan optimize
 
 EXPOSE 9000
 

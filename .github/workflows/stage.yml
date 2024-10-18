@@ -12,8 +12,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s) --no-cache
+        run: |
+          IMAGE_TAG=library-image:${{ github.run_number }}
+          docker build . --file Dockerfile --tag $IMAGE_TAG --no-cache
+          docker save $IMAGE_TAG -o library-image.tar
+        env:
+          IMAGE_TAG: library-image:${{ github.run_number }}
+
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: library-image
+          path: library-image.tar
 
   deploy:
     needs: build
@@ -23,10 +35,19 @@ jobs:
       - name: Checkout files
         uses: actions/checkout@v4
 
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: library-image
+
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DO_SSH_KEY }}
+
+      - name: Transfer Docker image to Droplet
+        run: |
+          scp -o StrictHostKeyChecking=no library-image.tar root@142.93.14.79:/home/laravel/book-library
 
       - name: Deploy to Droplet
         run: |
@@ -38,13 +59,14 @@ jobs:
           git clean -fd
           git pull origin main
           docker-compose down
-          docker-compose pull
-          docker-compose -f docker-compose.prod.yml up --build -d
+          docker load -i library-image.tar
+          docker-compose up -d --no-build
           EOF
 
-      - name: Build Frontend Assets And Migrations
+      - name: Post-deploy
         run: |
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
           docker exec -w /var/www/html library-app npm run build
           docker exec -w /var/www/html library-app php artisan migrate --force
+          docker exec -w /var/www/html library-app php artisan queue:work
           EOF
