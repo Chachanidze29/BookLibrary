@@ -56,7 +56,7 @@ jobs:
           cd /home/laravel/book-library
           docker system prune -a -f
           docker volume prune -a -f
-          docker system prune -a --volumes
+          docker system prune -a -f --volumes
           docker-compose down
           docker load -i library-image.tar
           docker-compose -f docker-compose.yml up -d --force-recreate
