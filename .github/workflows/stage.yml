@@ -47,7 +47,7 @@ jobs:
 
       - name: Transfer Docker image to Droplet
         run: |
-          scp -o StrictHostKeyChecking=no library-image.tar root@142.93.14.79:/home/laravel/book-library
+          scp -o StrictHostKeyChecking=no /home/runner/work/BookLibrary/BookLibrary/library-image.tar root@142.93.14.79:/home/laravel/book-library
 
       - name: Deploy to Droplet
         run: |
