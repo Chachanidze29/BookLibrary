@@ -2,9 +2,9 @@ name: Staging deployment
 
 on:
   push:
-    branches: ['main']
+    branches: [ 'main' ]
   pull_request:
-    branches: ['main']
+    branches: [ 'main' ]
 
 jobs:
   build:
@@ -52,14 +52,15 @@ jobs:
       - name: Deploy to Droplet
         run: |
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
-          set -ex
           cd /home/laravel/book-library
-
-          docker image prune -f
           docker system prune -f
-
-          docker load -i library-image.tar
-          docker-compose up -d
+          docker volume prune -f
+          git reset --hard
+          git clean -fd
+          git pull origin main
+          docker-compose down
+          docker-compose pull
+          docker-compose up --build -d
           EOF
 
       - name: Build Frontend Assets And Migrations
