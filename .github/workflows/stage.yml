@@ -47,7 +47,6 @@ jobs:
 
       - name: Transfer Docker image to Droplet
         run: |
-          ls -lh
           scp -o StrictHostKeyChecking=no ./library-image.tar root@142.93.14.79:/home/laravel/book-library
 
       - name: Deploy to Droplet
@@ -58,6 +57,7 @@ jobs:
           git reset --hard && git clean -fd && git pull origin main
           docker-compose down || true
           docker-compose pull || true
+          ls -lh
           docker load -i library-image.tar
           docker-compose up -d
           EOF
