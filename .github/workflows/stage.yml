@@ -47,17 +47,17 @@ jobs:
 
       - name: Transfer Docker image to Droplet
         run: |
-          scp -o StrictHostKeyChecking=no ./library-image.tar root@142.93.14.79:/home/laravel/book-library
+          scp -o StrictHostKeyChecking=no library-image.tar root@142.93.14.79:/home/laravel/book-library/
 
       - name: Deploy to Droplet
         run: |
+          set -ex
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
           cd /home/laravel/book-library
           docker system prune -f
           git reset --hard && git clean -fd && git pull origin main
           docker-compose down || true
           docker-compose pull || true
-          ls -lh
           docker load -i library-image.tar
           docker-compose up -d
           EOF
