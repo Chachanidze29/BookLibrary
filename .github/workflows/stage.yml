@@ -54,13 +54,11 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@142.93.14.79 << 'EOF'
           cd /home/laravel/book-library
           docker system prune -f
-          docker volume prune -f
-          git reset --hard
-          git clean -fd
-          git pull origin main
-          docker-compose down
-          docker-compose pull
-          docker-compose up --build -d
+          git reset --hard && git clean -fd && git pull origin main
+          docker-compose down || true
+          docker-compose pull || true
+          docker load -i library-image.tar
+          docker-compose up -d
           EOF
 
       - name: Build Frontend Assets And Migrations
