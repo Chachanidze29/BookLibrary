@@ -32,10 +32,10 @@ If you have any questions or demands, please contact me on my email: chachanidze
     cd book-library
     ```
    
-3. Install composer dependencies:
+3. Install docker:
 
     ```bash
-    composer install
+    install docker
     ```
 
 4. Create a new `.env` file by copying the example:
@@ -44,16 +44,16 @@ If you have any questions or demands, please contact me on my email: chachanidze
     cp .env.example .env
     ```
    
-5. Generate a new application key:
+5. Run application:
 
     ```bash
-    sail artisan key:generate
+    docker-compose up -d
     ```
 
-6. Run the application backend:
+6. Install composer dependencies:
 
     ```bash
-    sail up
+    docker exec -it library-app bash && composer install
     ```
 
 7. Install npm dependencies:
@@ -67,6 +67,10 @@ If you have any questions or demands, please contact me on my email: chachanidze
     ```bash
     npm run dev
     ```
+
+## Issues
+
+If mysql user isn't created run docker-compose down -v and then docker-compose up -d
 
 ## Usage
 
