@@ -3,6 +3,7 @@ import { useLaravelReactI18n } from 'laravel-react-i18n';
 
 import { AuthorCard } from '@/Components/AuthorCard';
 import { BookCard } from '@/Components/BookCard';
+import BooksShelf from '@/Components/BooksShelf';
 import { Button } from '@/Components/Button';
 import {
     Carousel,
@@ -43,6 +44,7 @@ export default function Home({
                     </Button>
                 </div>
             </div>
+            {/* <BooksShelf books={newBooks} /> */}
 
             {newBooks.length > 0 && (
                 <div className="container">

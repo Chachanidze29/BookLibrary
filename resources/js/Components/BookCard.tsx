@@ -8,6 +8,8 @@ import Image from '@/Components/Image';
 import { WishlistButton } from '@/Components/WishlistButton';
 import { Book } from '@/types/model';
 
+import AuthorsList from './AuthorsList';
+
 export function BookCard({ book }: { book: Book }) {
     return (
         <Card className="group relative transition-shadow duration-300 hover:shadow-md">
@@ -31,17 +33,7 @@ export function BookCard({ book }: { book: Book }) {
                         {book.title}
                     </p>
                     <p className="line-clamp-2 text-sm text-muted-foreground">
-                        {book.authors.map((author, index) => (
-                            <Fragment key={author.id}>
-                                <Link
-                                    className="hover:text-blue-500"
-                                    href={route('authors.show', author.id)}
-                                >
-                                    {author.name}
-                                </Link>
-                                {index < book.authors.length - 1 && ', '}
-                            </Fragment>
-                        ))}
+                        <AuthorsList authors={book.authors} />
                     </p>
                 </CardContent>
             </Link>

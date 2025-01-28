@@ -1,12 +1,13 @@
 import { Link } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { BookOpenTextIcon } from 'lucide-react';
-import { Fragment } from 'react';
 
 import { BookReservationDialog } from '@/Components/BookReservationDialog';
 import Image from '@/Components/Image';
 import { WishlistButton } from '@/Components/WishlistButton';
 import { Book } from '@/types/model';
+
+import AuthorsList from './AuthorsList';
 
 export const BookCardLarge = ({ book }: { book: Book }) => {
     const { t } = useLaravelReactI18n();
@@ -29,17 +30,7 @@ export const BookCardLarge = ({ book }: { book: Book }) => {
                         <h3 className="text-xl font-semibold">{book.title}</h3>
                     </Link>
                     <p className="text-gray-600">
-                        {book.authors.map((author, index) => (
-                            <Fragment key={author.id}>
-                                <Link
-                                    className="hover:text-blue-500"
-                                    href={route('authors.show', author.id)}
-                                >
-                                    {author.name}
-                                </Link>
-                                {index < book.authors.length - 1 && ', '}
-                            </Fragment>
-                        ))}
+                        <AuthorsList authors={book.authors} />
                     </p>
                     <p className="mt-2 text-sm text-gray-500">
                         {t('Published in :date', {
